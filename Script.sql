@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `Affinity`.`Usuarios` (
   `Mail` VARCHAR(45) NOT NULL,
   `Contrasena` VARCHAR(25) NOT NULL,
   `Ubicación` VARCHAR(45) NOT NULL,
-  `Miembro` TINYINT NOT NULL,
+  `Miembro` VARCHAR(2) NOT NULL,
   PRIMARY KEY (`ID_usuario`))
 ENGINE = InnoDB;
 
@@ -73,7 +73,7 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-INSERT INTO usuarios (ID_usuario, Nombre, Mail, Contrasena, Ubicacion, Miembro)
+INSERT INTO usuarios (ID_usuario, Nombre, Mail, Contrasena, Ubicación, Miembro)
 VALUES 
 ('00000001', 'Ana García', 'ana.garcia@mail.com', 'password123', 'Chamberí', 'SI'),
 ('00000002', 'Carlos Sánchez', 'carlos.sanchez@mail.com', 'securePass!', 'Salamanca', 'SI'),
