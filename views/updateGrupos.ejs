@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Actualizar Grupo</title>
+    <link rel="stylesheet" type="text/css" href="/css/estilos.css"/>
+  </head>
+  <body background="/img/fondoActualizar.avif">
+    <%- include ('./parcial/cabecera') %>
+    <br><br><br><br>
+    <button align="left"><a href="/list/groups"><img src="/img/volver.webp" width="40" height="40"></a></button>
+    <br><br>
+    <div class="modificar">
+    <br>
+    <img src="/img/Logo.webp" width="100px">
+    <br>
+    <h1>Actualizar Grupo</h1>
+    <% groups.forEach(grupos => { %>
+    <form method="post" action="/modif/groups">
+      <label for="idg" hidden>ID</label>
+      <input 
+      type="text" 
+      id="idg" 
+      name="idg" 
+      required
+      value="<%= grupos.ID_grupo %>" 
+      readonly
+      hidden
+      size="60"
+      /><br>
+      <label for="name">Nombre</label>
+      <br><br>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        required
+        value="<%= grupos.Nombre_grupo %>"
+        size="60"
+      /><br /><br />
+      <label for="desc">Descripción</label>
+      <br><br>
+      <input
+        type="text"
+        id="desc"
+        name="desc"
+        required
+        value="<%= grupos.Descripcion %>"
+        size="60"
+      /><br /><br /><br />
+      <button type="submit" id="boton" onmouseover="cambiarEstilo(true)" onmouseout="cambiarEstilo(false)" class="enviar">Enviar</button>
+      <button id="boton2" onmouseover="cambiarEstilo2(true)" onmouseout="cambiarEstilo2(false)" style="border-radius:  15px;"><a href="/" class="enviar">Cancelar</a></button>
+    </form>
+    </div>
+    <% }); %> <%- include ('./parcial/pie') %>
+    <script>
+      const name = document.getElementById("name");
+      const desc = document.getElementById("desc");
+      const boton = document.getElementById("boton");
+      function cambiarEstilo(punteroEncima) {
+          var boton = document.getElementById('boton');
+
+          if (punteroEncima) {
+              // Puntero del ratón encima del botón
+              boton.style.backgroundColor = 'green';
+          } else {
+              // Puntero del ratón fuera del botón
+              boton.style.backgroundColor = 'transparent';
+          }
+        }
+          function cambiarEstilo2(punteroEncima2) {
+          var boton2 = document.getElementById('boton2');
+
+          if (punteroEncima2) {
+              // Puntero del ratón encima del botón
+              boton2.style.backgroundColor = 'orange';
+          } else {
+              // Puntero del ratón fuera del botón
+              boton2.style.backgroundColor = 'transparent';
+          }
+      }
+      function length() {
+            if ( name.value.length > "255" ) {
+                alert("El nombre no debe suerar los 255 carácteres");
+                name.value = "";
+            }
+            if ( desc.value.length > "255" ) {
+                alert("La descripcion no debe suerar los 255 carácteres");
+                desc.value = "";
+            }
+        }
+        boton.addEventListener("click",length);
+  </script>
+  </body>
+</html>

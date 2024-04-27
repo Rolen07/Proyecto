@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Eliminar Grupo</title>
+    <link rel="stylesheet" type="text/css" href="/css/estilos.css"/>
+  </head>
+  <body background="/img/fondoBorrar.avif">
+    <%- include ('./parcial/cabecera') %>
+    <br><br><br><br>
+    <button align="left"><a href="/list/groups"><img src="/img/volver.webp" width="40" height="40"></a></button>
+    <br><br>
+    <div class="centro">
+    <h1>Eliminar Grupo</h1>
+    <br>
+    <% groups.forEach(grupos => { %>
+    <form method="POST" action="/delete/groups">
+      <label for="idg">ID</label>
+      <br>
+      <input type="text" 
+      id="idg" 
+      name="idg" 
+      required
+      value="<%= grupos.ID_grupo %>" 
+      readonly
+      size="30"
+      /><br /><br />
+      <label for="name">Nombre</label>
+      <br>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        required
+        value="<%= grupos.Nombre_grupo %>"
+        readonly
+        size="30"
+      /><br /><br />
+      <label for="desc">Descripcion</label>
+      <br>
+      <input 
+        type="text"
+        id="desc" 
+        name="desc"
+        required
+        value="<%= grupos.Descripcion %>" 
+        readonly
+        size="60"
+        /><br /><br /><br>
+      <button type="submit">
+        <img src="/img/delete.png" onmouseover="this.width=50;this.height=50;" onmouseout="this.width=40;this.height=40;" width="40" height="40" alt="">
+      </button>
+    </form>
+    </div>
+    <% }); %> <%- include ('./parcial/pie') %>
+  </body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Grupos</title>
+    <link rel="stylesheet" type="text/css" href="/css/estilos.css"/>
+  </head>
+  <body background="/img/fondoListar.webp">
+    <%- include ('./parcial/cabecera') %>
+    <br><br><br>
+    <h1>Grupos</h1>
+    <br>
+    <button><a href="/"><img src="/img/volver.webp" width="40" height="40"></a></button>
+    <table rules="all">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th colspan="2">Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% groups.forEach(grupos => { %>
+        <tr>
+          <td><%= grupos.ID_grupo %></td>
+          <td><%= grupos.Nombre_grupo %></td>
+          <td><%= grupos.Descripcion %></td>
+          <td>
+            <a href="/modif/groups?idg=<%= grupos.ID_grupo %>"
+              ><img src="/img/modify.png" onmouseover="this.width=40;this.height=40;" onmouseout="this.width=30;this.height=30;" width="30" height="30" alt=""
+            /></a>
+          </td>
+          <td>
+            <a href="/delete/groups?idg=<%= grupos.ID_grupo %>"
+              ><img src="/img/delete.png" onmouseover="this.width=40;this.height=40;" onmouseout="this.width=30;this.height=30;" width="30" height="30" alt=""
+            /></a>
+          </td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+    <br>
+    <button id="boton" type="button">
+      <img src="/img/add.png" onmouseover="this.width=50;this.height=50;" onmouseout="this.width=40;this.height=40;" width="40" height="40" alt="">
+    </button>
+    <%- include ('./parcial/pie') %>
+    <script>
+      const boton = document.getElementById("boton");
+  
+      function provisional() {
+      alert("Funcion en desarrollo")
+      }
+  
+      boton.addEventListener("click", provisional);
+      </script>
+  </body>
+</html>

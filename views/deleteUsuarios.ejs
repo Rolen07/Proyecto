@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Eliminar Usuario</title>
+    <link rel="stylesheet" type="text/css" href="/css/estilos.css"/>
+  </head>
+  <body background="/img/fondoBorrar.avif">
+    <%- include ('./parcial/cabecera') %>
+    <br><br><br><br>
+    <button align="left"><a href="/list/users"><img src="/img/volver.webp" width="40" height="40"></a></button>
+    <br><br>
+    <div class="centro">
+    <h1>Eliminar Usuario</h1>
+    <% users.forEach(usuarios => { %>
+    <form method="POST" action="/delete/users">
+      <label for="idu">ID</label>
+      <br>
+      <input 
+      type="text" 
+      id="idu" 
+      name="idu" 
+      required 
+      value="<%= usuarios.ID_usuario %>" 
+      readonly
+      size="30"
+      /><br /><br />
+      <label for="name">Nombre</label>
+      <br>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        required
+        value="<%= usuarios.Nombre %>"
+        readonly
+        size="30"
+      /><br /><br />
+      <label for="correo">Correo</label>
+      <br>
+      <input
+        type="text"
+        id="correo"
+        name="correo"
+        required
+        value="<%= usuarios.Mail %>"
+        readonly
+        size="30"
+      /><br /><br />
+      <label for="fecha">Ubicación</label>
+      <br>
+      <input
+        type="text"
+        id="fecha"
+        name="fecha"
+        value="<%= usuarios.Ubicación %>"
+        readonly
+        size="30"
+      /><br /><br />
+      <button type="submit">
+        <img src="/img/delete.png" onmouseover="this.width=50;this.height=50;" onmouseout="this.width=40;this.height=40;" width="40" height="40" alt="">
+      </button>
+    </form>
+  </div>
+    <% }); %> <%- include ('./parcial/pie') %>
+  </body>
+</html>

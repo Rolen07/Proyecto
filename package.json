@@ -1,0 +1,18 @@
+{
+  "name": "trabajofinal",
+  "version": "1.0.0",
+  "description": "",
+  "main": "affinity.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon affinity.js"
+  },
+  "author": "Affinity",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "mysql": "^2.18.1",
+    "nodemon": "^3.0.3"
+  }
+}
