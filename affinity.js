@@ -18,9 +18,48 @@ app.use(express.json());
 app.set('view engine', 'ejs');
 
 
-///////////////////////////   VOLVER AL MENÚ DESDE CUALQUIER PÁGINA /////////////////////////////////
+// Ruta de registro de Usuarios
+app.get('/signup', (req, res) => {
+  res.sendFile(__dirname + '/signup.html');
+});
+
+// Ruta de registro de usuario
+app.post('/signup', (req, res) => {
+  const cuenta = {
+    Nombre: req.body.Nombre,
+    Mail: req.body.Mail,
+    Contrasena: req.body.Contrasena,
+    Ubicación: req.body.Ubicación,
+    Miembro: req.body.Miembro
+  };
+  // Insertar nuevo usuario en la base de datos
+  connection.query('INSERT INTO Usuarios SET ?', cuenta, (error, results) => {
+    if (error) throw error;
+    //res.send('Usuario registrado exitosamente');
+    res.sendFile(__dirname + '/login.html');
+  });
+});
+
+// Ruta de inicio de sesión
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/login.html');
+});
+
+// Ruta de validación de inicio de sesión
+app.post('/login', (req, res) => {
+  const mail = req.body.Mail;
+  const contrasena = req.body.Contrasena;
+  // Realizar consulta a la base de datos para verificar el inicio de sesión
+  connection.query('SELECT * FROM Usuarios WHERE Mail = ? AND Contrasena = ?', [mail, contrasena], (error, results) => {
+    if (error) throw error;
+
+    if (results.length > 0) {
+     // res.send('Inicio de sesión exitoso');
+      res.sendFile(__dirname + '/index.html');
+    } else {
+      res.redirect('/erroracceso');
+    }
+  });
 });
 
 

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Registro de usuario</title>
+</head>
+<style>
+  body{
+    background-image: url("/img/fondoregistro.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  #formulario{
+    position: relative;
+    left: 660px;
+    top: 200px;
+    width: 500px;
+    height: 400px;
+    background-color: gainsboro;
+    padding: 30px;
+    border-style: groove;
+    box-shadow: 3px 3px black;
+  }
+  #titulo{
+    position: relative;
+    text-align: center;
+    border-style: solid;
+    border-color: darkorange;
+    border-radius: 4px;
+    border-width: 4px;
+    width: 500px;
+    left: 690px;
+    top: 200px;
+    text-shadow: 3px 3px green;
+    color: red;
+    background-color: cyan;
+    box-shadow: 3px 3px navy;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 40px;
+  }
+  #usuariio{
+    position: relative;
+    left: 184px;
+    font-size: 30px;
+    color: rgb(0, 0, 0);
+    text-shadow: 1px 1px rgb(255, 166, 0);
+    font-family: 'Nobile';
+  }
+  #Usuario{
+    position: relative;
+    left: 40px;
+    font-size: 30px;
+    background-color: firebrick;
+    font-family: 'Abel';
+    width: 400px;
+  }
+  #emaili{
+    position: relative;
+    left: 120px;
+    font-size: 30px;
+    color: rgb(0, 0, 0);
+    text-shadow: 1px 1px rgb(255, 166, 0);
+    font-family: 'Nobile';
+  }
+  #Email{
+    position: relative;
+    left: 40px;
+    font-size: 30px;
+    background-color: firebrick;
+    font-family: 'Abel';
+    width: 400px;
+  }
+  #contrasenia{
+    position: relative;
+    left: 160px;
+    top: 10px;
+    font-size: 30px;
+    color: rgb(0, 0, 0);
+    text-shadow: 1px 1px rgb(255, 166, 0);
+    font-family: 'Nobile';
+  }
+  #Contrasena{
+    position: relative;
+    left: 40px;
+    top: 10px;
+    font-size: 30px;
+    background-color: firebrick;
+    font-family: 'Abel';
+    width: 400px;
+  }
+  #boton{
+    position: relative;
+    left: 162px;
+    top: 40px;
+    font-size: 30px;
+    background-color: rgb(34, 156, 178);
+    box-shadow: 3px 3px gray;
+    font-family: 'Nobile';
+  }
+  #registra{
+    position: relative;
+    left: 770px;
+    top: 80px;
+    font-size: 20px;
+    font-family: 'Nobile';
+    width: 500px;
+  }
+</style>
+<body>
+
+  <h1 id="titulo">Registro de usuario</h1>
+
+  <div id="formulario">
+  <form id="signupForm" method="post" action="/signup">
+    <label for="Nombre" id="nombre">Nombre</label>
+    <input type="text" id="Nombre" name="Nombre" required><br>
+
+    <label for="Mail" id="mail">Correo electrónico</label>
+    <input type="text" id="Mail" name="Mail" required><br>
+
+    <label for="Contrasena" id="contrasena">Contraseña</label>
+    <input type="password" id="Contrasena" name="Contrasena" required><br>
+
+    <label for="Ubicación" id="Ubicación">Ubicación</label>
+    <input type="text" id="Ubicación" name="Ubicación" required><br>
+
+    <label type="hidden" for="Miembro" id="Miembro">Miembro</label>
+    <input type="hidden" id="Miembro" name="Miembro" required>NO<br>
+
+    <button type="submit" id="boton">Registrarse</button>
+  </form>
+  </div>
+
+  <p id="registra">¿Ya tienes una cuenta? <a href="./">Inicia sesión aquí</a></p>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="signup.js"></script>
+</body>
+</html>
