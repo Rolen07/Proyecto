@@ -85,6 +85,13 @@
   #registra a:hover{
     text-decoration: underline;
   }
+  .aficiones {
+    margin-bottom: 10px;
+  }
+  .aficiones label {
+    display: inline-block;
+    margin-right: 20px;
+  }
 </style>
 <body>
 
@@ -107,84 +114,86 @@
 
       <input type="hidden" id="Miembro" name="Miembro" value="NO">
 
-      <label for="Aficion" class="input-label">Aficiones</label><br>
-      <input type="radio" id="Deportes" name="Aficion" class="input-radio" value="Deportes">
-      <label for="Deportes" class="input-label">Deportes</label>
+      <div class="aficiones">
+        <label class="input-label">Aficiones</label><br>
+        <input type="checkbox" id="Deportes" name="Aficion" class="input-checkbox" value="Deportes">
+        <label for="Deportes">Deportes</label>
 
-      <input type="radio" id="Musica" name="Aficion" class="input-radio" value="Musica">
-      <label for="Musica" class="input-label">Música</label>
+        <input type="checkbox" id="Musica" name="Aficion" class="input-checkbox" value="Musica">
+        <label for="Musica">Música</label>
 
-      <input type="radio" id="Viajar" name="Aficion" class="input-radio" value="Viajar">
-      <label for="Viajar" class="input-label">Viajar</label>
+        <input type="checkbox" id="Viajar" name="Aficion" class="input-checkbox" value="Viajar">
+        <label for="Viajar">Viajar</label>
 
-      <input type="radio" id="Cine" name="Aficion" class="input-radio" value="Cine">
-      <label for="Cine" class="input-label">Cine</label>
+        <input type="checkbox" id="Cine" name="Aficion" class="input-checkbox" value="Cine">
+        <label for="Cine">Cine</label>
 
-      <input type="radio" id="Lectura" name="Aficion" class="input-radio" value="Lectura">
-      <label for="Lectura" class="input-label">Lectura</label>
+        <input type="checkbox" id="Lectura" name="Aficion" class="input-checkbox" value="Lectura">
+        <label for="Lectura">Lectura</label>
 
-      <input type="radio" id="Arte" name="Aficion" class="input-radio" value="Arte">
-      <label for="Arte" class="input-label">Arte</label>
+        <input type="checkbox" id="Arte" name="Aficion" class="input-checkbox" value="Arte">
+        <label for="Arte">Arte</label>
 
-      <input type="radio" id="Jardinería" name="Aficion" class="input-radio" value="Jardinería">
-      <label for="Jardinería" class="input-label">Jardinería</label>
+        <input type="checkbox" id="Jardinería" name="Aficion" class="input-checkbox" value="Jardinería">
+        <label for="Jardinería">Jardinería</label>
 
-      <input type="radio" id="Fotografía" name="Aficion" class="input-radio" value="Fotografía">
-      <label for="Fotografía" class="input-label">Fotografía</label>
+        <input type="checkbox" id="Fotografía" name="Aficion" class="input-checkbox" value="Fotografía">
+        <label for="Fotografía">Fotografía</label>
 
-      <input type="radio" id="Senderismo" name="Aficion" class="input-radio" value="Senderismo">
-      <label for="Senderismo" class="input-label">Senderismo</label>
+        <input type="checkbox" id="Senderismo" name="Aficion" class="input-checkbox" value="Senderismo">
+        <label for="Senderismo">Senderismo</label>
 
-      <input type="radio" id="Bailar" name="Aficion" class="input-radio" value="Bailar">
-      <label for="Bailar" class="input-label">Bailar</label>
+        <input type="checkbox" id="Bailar" name="Aficion" class="input-checkbox" value="Bailar">
+        <label for="Bailar">Bailar</label>
 
-      <input type="radio" id="Juegos_de_mesa" name="Aficion" class="input-radio" value="Juegos de mesa">
-      <label for="Juegos_de_mesa" class="input-label">Juegos de mesa</label>
+        <input type="checkbox" id="Juegos de mesa" name="Aficion" class="input-checkbox" value="Juegos de mesa">
+        <label for="Juegos de mesa">Juegos de mesa</label>
 
-      <input type="radio" id="Yoga" name="Aficion" class="input-radio" value="Yoga">
-      <label for="Yoga" class="input-label">Yoga</label>
+        <input type="checkbox" id="Yoga" name="Aficion" class="input-checkbox" value="Yoga">
+        <label for="Yoga">Yoga</label>
 
-      <input type="radio" id="Programación" name="Aficion" class="input-radio" value="Programación">
-      <label for="Programación" class="input-label">Programación</label>
+        <input type="checkbox" id="Programación" name="Aficion" class="input-checkbox" value="Programación">
+        <label for="Programación">Programación</label>
 
-      <input type="radio" id="Manualidades" name="Aficion" class="input-radio" value="Manualidades">
-      <label for="Manualidades" class="input-label">Manualidades</label>
+        <input type="checkbox" id="Manualidades" name="Aficion" class="input-checkbox" value="Manualidades">
+        <label for="Manualidades">Manualidades</label>
 
-      <input type="radio" id="Videojuegos" name="Aficion" class="input-radio" value="Videojuegos">
-      <label for="Videojuegos" class="input-label">Videojuegos</label>
+        <input type="checkbox" id="Videojuegos" name="Aficion" class="input-checkbox" value="Videojuegos">
+        <label for="Videojuegos">Videojuegos</label>
 
-      <input type="radio" id="Astronomía" name="Aficion" class="input-radio" value="Astronomía">
-      <label for="Astronomía" class="input-label">Astronomía</label>
+        <input type="checkbox" id="Astronomía" name="Aficion" class="input-checkbox" value="Astronomía">
+        <label for="Astronomía">Astronomía</label>
 
-      <input type="radio" id="Jinete" name="Aficion" class="input-radio" value="Jinete">
-      <label for="Jinete" class="input-label">Jinete</label>
+        <input type="checkbox" id="Jinete" name="Aficion" class="input-checkbox" value="Jinete">
+        <label for="Jinete">Jinete</label>
 
-      <input type="radio" id="Cosplayer" name="Aficion" class="input-radio" value="Cosplayer">
-      <label for="Cosplayer" class="input-label">Cosplayer</label>
+        <input type="checkbox" id="Cosplayer" name="Aficion" class="input-checkbox" value="Cosplayer">
+        <label for="Cosplayer">Cosplayer</label>
 
-      <input type="radio" id="Anime" name="Aficion" class="input-radio" value="Anime">
-      <label for="Anime" class="input-label">Anime</label>
+        <input type="checkbox" id="Anime" name="Aficion" class="input-checkbox" value="Anime">
+        <label for="Anime">Anime</label>
 
-      <input type="radio" id="Filosofía" name="Aficion" class="input-radio" value="Filosofía">
-      <label for="Filosofía" class="input-label">Filosofía</label>
+        <input type="checkbox" id="Filosofía" name="Aficion" class="input-checkbox" value="Filosofía">
+        <label for="Filosofía">Filosofía</label>
 
-      <input type="radio" id="Ciencias" name="Aficion" class="input-radio" value="Ciencias">
-      <label for="Ciencias" class="input-label">Ciencias</label>
+        <input type="checkbox" id="Ciencias" name="Aficion" class="input-checkbox" value="Ciencias">
+        <label for="Ciencias">Ciencias</label>
 
-      <input type="radio" id="Aprender_idiomas" name="Aficion" class="input-radio" value="Aprender idiomas">
-      <label for="Aprender_idiomas" class="input-label">Aprender idiomas</label>
+        <input type="checkbox" id="Aprender_idiomas" name="Aficion" class="input-checkbox" value="Aprender idiomas">
+        <label for="Aprender_idiomas">Aprender idiomas</label>
 
-      <input type="radio" id="Escribir" name="Aficion" class="input-radio" value="Escribir">
-      <label for="Escribir" class="input-label">Escribir</label>
+        <input type="checkbox" id="Escribir" name="Aficion" class="input-checkbox" value="Escribir">
+        <label for="Escribir">Escribir</label>
 
-      <input type="radio" id="Dibujar" name="Aficion" class="input-radio" value="Dibujar">
-      <label for="Dibujar" class="input-label">Dibujar</label>
+        <input type="checkbox" id="Dibujar" name="Aficion" class="input-checkbox" value="Dibujar">
+        <label for="Dibujar">Dibujar</label>
 
-      <input type="radio" id="Cocina" name="Aficion" class="input-radio" value="Cocina">
-      <label for="Cocina" class="input-label">Cocina</label>
+        <input type="checkbox" id="Cocina" name="Aficion" class="input-checkbox" value="Cocina">
+        <label for="Cocina">Cocina</label>
 
-      <input type="radio" id="Otro" name="Aficion" class="input-radio" value="Otro">
-      <label for="Otro" class="input-label">Otro</label>
+        <input type="checkbox" id="Otro" name="Aficion" class="input-checkbox" value="Otro">
+        <label for="Otro">Otro</label>
+      </div>
 
       <button type="submit" id="boton">Registrarse</button>
     </form>
