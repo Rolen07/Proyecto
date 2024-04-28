@@ -85,3 +85,26 @@ VALUES
 ('00000008', 'Miguel Torres', 'miguel.torres@mail.com', 'Miguel!2023', 'Moncloa-Aravaca', 'SI'),
 ('00000009', 'Isabel Pérez', 'isabel.perez@mail.com', 'IsaB3L!p', 'San Blas', 'NO'),
 ('00000010', 'Álvaro Moreno', 'alvaro.moreno@mail.com', 'aLVaRO123', 'Usera', 'SI');
+
+-- Insertar datos de muestra en la tabla de aficiones
+
+-- Insertar algunas aficiones
+INSERT INTO Aficiones (ID_aficion, Nombre, Descripcion) VALUES ('00000001', 'Lectura', 'Leer libros es una actividad relajante y educativa.');
+INSERT INTO Aficiones (ID_aficion, Nombre, Descripcion) VALUES ('00000002', 'Cine', 'Ver películas es una forma de entretenimiento muy popular.');
+INSERT INTO Aficiones (ID_aficion, Nombre, Descripcion) VALUES ('00000003', 'Deportes', 'Practicar deportes es una excelente manera de mantenerse activo y saludable.');
+INSERT INTO Aficiones (ID_aficion, Nombre, Descripcion) VALUES ('00000004', 'Música', 'Escuchar música puede influir en el estado de ánimo y es una forma de expresión artística.');
+INSERT INTO Aficiones (ID_aficion, Nombre, Descripcion) VALUES ('00000005', 'Arte', 'Explorar el mundo del arte puede ser inspirador y enriquecedor.');
+INSERT INTO Aficiones (ID_aficion, Nombre, Descripcion) VALUES ('00000006', 'Cocina', 'Cocinar es una habilidad creativa y gratificante que permite experimentar con sabores y texturas.');
+INSERT INTO Aficiones (ID_aficion, Nombre, Descripcion) VALUES ('00000007', 'Viajar', 'Explorar nuevos lugares y culturas amplía horizontes y crea recuerdos inolvidables.');
+INSERT INTO Aficiones (ID_aficion, Nombre, Descripcion) VALUES ('00000008', 'Jardinería', 'Cuidar plantas y jardines es una actividad terapéutica que conecta con la naturaleza.');
+INSERT INTO Aficiones (ID_aficion, Nombre, Descripcion) VALUES ('00000009', 'Fotografía', 'Capturar momentos con fotografías es una forma de preservar recuerdos y expresar creatividad.');
+INSERT INTO Aficiones (ID_aficion, Nombre, Descripcion) VALUES ('00000010', 'Senderismo', 'Explorar la naturaleza a pie es una actividad que combina ejercicio y contemplación.');
+INSERT INTO Aficiones (ID_aficion, Nombre, Descripcion) VALUES ('00000011', 'Bailar', 'El baile es una forma de expresión artística que fomenta la coordinación y el ritmo.');
+INSERT INTO Aficiones (ID_aficion, Nombre, Descripcion) VALUES ('00000012', 'Juegos de mesa', 'Los juegos de mesa son una forma divertida de socializar y ejercitar la mente.');
+INSERT INTO Aficiones (ID_aficion, Nombre, Descripcion) VALUES ('00000013', 'Yoga', 'Practicar yoga ayuda a mejorar la flexibilidad, el equilibrio y la relajación.');
+INSERT INTO Aficiones (ID_aficion, Nombre, Descripcion) VALUES ('00000014', 'Programación', 'La programación es una habilidad técnica que permite crear software y resolver problemas de manera lógica.');
+INSERT INTO Aficiones (ID_aficion, Nombre, Descripcion) VALUES ('00000015', 'Manualidades', 'Realizar manualidades es una forma de expresar creatividad y producir objetos únicos.');
+INSERT INTO Aficiones (ID_aficion, Nombre, Descripcion) VALUES ('00000016', 'Ajedrez', 'El ajedrez es un juego de estrategia que estimula la concentración y el pensamiento crítico.');
+-- Insertar algunas personas con sus aficiones
+-- Recuerda que necesitarás las ID de las personas correspondientes para estos inserts.
+
