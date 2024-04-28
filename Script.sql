@@ -105,6 +105,7 @@ INSERT INTO aficiones (ID_aficion, Nombre, Descripcion) VALUES ('00000013', 'Yog
 INSERT INTO aficiones (ID_aficion, Nombre, Descripcion) VALUES ('00000014', 'Programación', 'La programación es una habilidad técnica que permite crear software y resolver problemas de manera lógica.');
 INSERT INTO aficiones (ID_aficion, Nombre, Descripcion) VALUES ('00000015', 'Manualidades', 'Realizar manualidades es una forma de expresar creatividad y producir objetos únicos.');
 INSERT INTO aficiones (ID_aficion, Nombre, Descripcion) VALUES ('00000016', 'Ajedrez', 'El ajedrez es un juego de estrategia que estimula la concentración y el pensamiento crítico.');
+INSERT INTO aficiones (ID_aficion, Nombre, Descripcion) VALUES ('00000017', 'Videojuegos', 'Los videojuegos son el pasatiempo más popular de la actualidad, donde el juego entretiene a gran escala.');
 -- Insertar algunas personas con sus aficiones
 -- Recuerda que necesitarás las ID de las personas correspondientes para estos inserts.
 
@@ -129,8 +130,9 @@ INSERT INTO usuario_aficion (ID_usuario, ID_aficion) VALUES ('00000006', '000000
 
 -- Lucía Fernández no tiene ninguna afición registrada
 
--- Miguel Torres tiene la afición de Viajar
+-- Miguel Torres tiene la afición de Viajar y Videojuegos
 INSERT INTO usuario_aficion (ID_usuario, ID_aficion) VALUES ('00000008', '00000007'); -- Miguel Torres: Viajar
+INSERT INTO usuario_aficion (ID_usuario, ID_aficion) VALUES ('00000008', '00000017'); -- Miguel Torres: Videojuegos
 
 -- Isabel Pérez no tiene ninguna afición registrada
 
