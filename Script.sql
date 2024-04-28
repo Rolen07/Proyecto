@@ -115,38 +115,85 @@ INSERT INTO aficiones (ID_aficion, Nombre_Aficion, Descripcion) VALUES ('0000002
 INSERT INTO aficiones (ID_aficion, Nombre_Aficion, Descripcion) VALUES ('00000024', 'Escribir', 'Escribir libros, novelas, poesía, entre otros, es un pasatiempo favorito para varias personas.');
 INSERT INTO aficiones (ID_aficion, Nombre_Aficion, Descripcion) VALUES ('00000025', 'Dibujar', 'El fútbol es uno de los deportes más populares del mundo, jugado tanto a nivel profesional como recreativo.');
 
--- Insertar algunas personas con sus aficiones
--- Recuerda que necesitarás las ID de las personas correspondientes para estos inserts.
+-- Insertar relaciones entre usuarios y aficiones de forma distribuida
 
-INSERT INTO usuario_aficion (ID_usuario, ID_aficion) VALUES ('00000001', '00000001'); -- Ana García: Lectura
-INSERT INTO usuario_aficion (ID_usuario, ID_aficion) VALUES ('00000001', '00000006'); -- Ana García: Cocina
+-- Usuarios con ID del 1 al 10, asumiendo que tienes 10 usuarios en total
+-- Aficiones con ID del 1 al 25, asumiendo que tienes 25 aficiones en total
 
--- Carlos Sánchez tiene la afición de Cine
-INSERT INTO usuario_aficion (ID_usuario, ID_aficion) VALUES ('00000002', '00000002'); -- Carlos Sánchez: Cine
+-- Asignación manual de aficiones a cada usuario
 
--- María López no tiene ninguna afición registrada
--- Por lo tanto, no se inserta ninguna relación para ella en esta tabla
+-- Ana García: Lectura, Cine, Deportes, Música, Arte
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000001', '00000001'); -- Lectura
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000001', '00000002'); -- Cine
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000001', '00000003'); -- Deportes
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000001', '00000004'); -- Música
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000001', '00000005'); -- Arte
 
--- Pedro Gómez tiene la afición de Deportes
-INSERT INTO usuario_aficion (ID_usuario, ID_aficion) VALUES ('00000004', '00000003'); -- Pedro Gómez: Deportes
+-- Carlos Sánchez: Arte, Cocina, Viajar, Jardinería, Fotografía
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000002', '00000005'); -- Arte
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000002', '00000006'); -- Cocina
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000002', '00000007'); -- Viajar
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000002', '00000008'); -- Jardinería
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000002', '00000009'); -- Fotografía
 
--- Sofía Martínez tiene las aficiones de Arte y Jardinería
-INSERT INTO usuario_aficion (ID_usuario, ID_aficion) VALUES ('00000005', '00000005'); -- Sofía Martínez: Arte
-INSERT INTO usuario_aficion (ID_usuario, ID_aficion) VALUES ('00000005', '00000008'); -- Sofía Martínez: Jardinería
+-- María López: Fotografía, Senderismo, Bailar, Juegos de mesa, Yoga
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000003', '00000009'); -- Fotografía
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000003', '00000010'); -- Senderismo
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000003', '00000011'); -- Bailar
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000003', '00000012'); -- Juegos de mesa
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000003', '00000013'); -- Yoga
 
--- Javier Rodríguez tiene la afición de Fotografía
-INSERT INTO usuario_aficion (ID_usuario, ID_aficion) VALUES ('00000006', '00000009'); -- Javier Rodríguez: Fotografía
+-- Pedro Gómez: Manualidades, Videojuegos, Astronomía, Jinete, Cosplayer
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000004', '00000015'); -- Manualidades
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000004', '00000016'); -- Videojuegos
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000004', '00000017'); -- Astronomía
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000004', '00000018'); -- Jinete
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000004', '00000019'); -- Cosplayer
 
--- Lucía Fernández no tiene ninguna afición registrada
+-- Continuar asignando las aficiones a los usuarios restantes según sea necesario
+-- Insertar relaciones entre usuarios y aficiones para los usuarios restantes
 
--- Miguel Torres tiene la afición de Viajar y Videojuegos
-INSERT INTO usuario_aficion (ID_usuario, ID_aficion) VALUES ('00000008', '00000007'); -- Miguel Torres: Viajar
-INSERT INTO usuario_aficion (ID_usuario, ID_aficion) VALUES ('00000008', '00000016'); -- Miguel Torres: Videojuegos
+-- Sofía Martínez: Anime, Filosofía, Ciencias, Aprender idiomas, Escribir
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000005', '00000020'); -- Anime
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000005', '00000021'); -- Filosofía
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000005', '00000022'); -- Ciencias
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000005', '00000023'); -- Aprender idiomas
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000005', '00000024'); -- Escribir
 
--- Isabel Pérez no tiene ninguna afición registrada
+-- Javier Rodríguez: Dibujar, Lectura, Cine, Deportes, Música
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000006', '00000025'); -- Dibujar
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000006', '00000001'); -- Lectura
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000006', '00000002'); -- Cine
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000006', '00000003'); -- Deportes
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000006', '00000004'); -- Música
 
--- Álvaro Moreno tiene las aficiones de Lectura, Cine y Fotografía
-INSERT INTO usuario_aficion (ID_usuario, ID_aficion) VALUES ('00000010', '00000001'); -- Álvaro Moreno: Lectura
-INSERT INTO usuario_aficion (ID_usuario, ID_aficion) VALUES ('00000010', '00000002'); -- Álvaro Moreno: Cine
-INSERT INTO usuario_aficion (ID_usuario, ID_aficion) VALUES ('00000010', '00000009'); -- Álvaro Moreno: Fotografía
+-- Lucía Fernández: Arte, Cocina, Viajar, Jardinería, Fotografía
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000007', '00000005'); -- Arte
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000007', '00000006'); -- Cocina
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000007', '00000007'); -- Viajar
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000007', '00000008'); -- Jardinería
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000007', '00000009'); -- Fotografía
+
+-- Miguel Torres: Manualidades, Videojuegos, Astronomía, Jinete, Cosplayer
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000008', '00000015'); -- Manualidades
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000008', '00000016'); -- Videojuegos
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000008', '00000017'); -- Astronomía
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000008', '00000018'); -- Jinete
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000008', '00000019'); -- Cosplayer
+
+-- Isabel Pérez: Astronomía, Jinete, Cosplayer, Anime, Filosofía
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000009', '00000017'); -- Astronomía
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000009', '00000018'); -- Jinete
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000009', '00000019'); -- Cosplayer
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000009', '00000020'); -- Anime
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000009', '00000021'); -- Filosofía
+
+-- Álvaro Moreno: Ciencias, Aprender idiomas, Escribir, Dibujar, Lectura
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000010', '00000022'); -- Ciencias
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000010', '00000023'); -- Aprender idiomas
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000010', '00000024'); -- Escribir
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000010', '00000025'); -- Dibujar
+INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000010', '00000001'); -- Lectura
+
+-- Continuar asignando las aficiones a los usuarios restantes según sea necesario
 
