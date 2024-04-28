@@ -2,135 +2,192 @@
 <html>
 <head>
   <title>Registro de usuario</title>
+  <link href='https://fonts.googleapis.com/css?family=Nobile|Abel|Ranchers' rel='stylesheet'>
 </head>
 <style>
   body{
-    background-image: url("/img/fondoregistro.jpg");
+    background-image: url("/img/FondoWiiThingy.png");
     background-repeat: no-repeat;
     background-size: cover;
+    font-family: 'Arial', sans-serif;
   }
   #formulario{
-    position: relative;
-    left: 660px;
-    top: 200px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     width: 500px;
-    height: 400px;
-    background-color: gainsboro;
+    background-color: #f0f0f0;
     padding: 30px;
-    border-style: groove;
-    box-shadow: 3px 3px black;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
   #titulo{
-    position: relative;
     text-align: center;
-    border-style: solid;
-    border-color: darkorange;
+    margin-bottom: 20px;
+  }
+  #titulo h1{
+    position: relative;
+    bottom: 30px;
+    border: 4px solid darkorange;
     border-radius: 4px;
-    border-width: 4px;
-    width: 500px;
-    left: 690px;
-    top: 200px;
-    text-shadow: 3px 3px green;
+    font-size: 40px;
     color: red;
     background-color: cyan;
     box-shadow: 3px 3px navy;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 40px;
+    padding: 10px;
   }
-  #usuariio{
-    position: relative;
-    left: 184px;
-    font-size: 30px;
-    color: rgb(0, 0, 0);
-    text-shadow: 1px 1px rgb(255, 166, 0);
-    font-family: 'Nobile';
+  .input-group{
+    margin-bottom: 20px;
   }
-  #Usuario{
+  .input-label{
     position: relative;
-    left: 40px;
-    font-size: 30px;
-    background-color: firebrick;
-    font-family: 'Abel';
-    width: 400px;
+    bottom: 30px;
+    display: block;
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 10px;
   }
-  #emaili{
+  .input-field{
     position: relative;
-    left: 120px;
-    font-size: 30px;
-    color: rgb(0, 0, 0);
-    text-shadow: 1px 1px rgb(255, 166, 0);
-    font-family: 'Nobile';
-  }
-  #Email{
-    position: relative;
-    left: 40px;
-    font-size: 30px;
-    background-color: firebrick;
-    font-family: 'Abel';
-    width: 400px;
-  }
-  #contrasenia{
-    position: relative;
-    left: 160px;
-    top: 10px;
-    font-size: 30px;
-    color: rgb(0, 0, 0);
-    text-shadow: 1px 1px rgb(255, 166, 0);
-    font-family: 'Nobile';
-  }
-  #Contrasena{
-    position: relative;
-    left: 40px;
-    top: 10px;
-    font-size: 30px;
-    background-color: firebrick;
-    font-family: 'Abel';
-    width: 400px;
+    bottom: 33px;
+    width: calc(100% - 20px);
+    padding: 10px;
+    font-size: 18px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
   }
   #boton{
-    position: relative;
-    left: 162px;
-    top: 40px;
-    font-size: 30px;
+    width: 100%;
+    padding: 10px;
+    font-size: 20px;
     background-color: rgb(34, 156, 178);
-    box-shadow: 3px 3px gray;
-    font-family: 'Nobile';
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  #boton:hover{
+    background-color: #45a049;
   }
   #registra{
-    position: relative;
-    left: 770px;
-    top: 80px;
-    font-size: 20px;
-    font-family: 'Nobile';
-    width: 500px;
+    text-align: center;
+    font-size: 16px;
+    color: #666;
+    margin-top: 20px;
+  }
+  #registra a{
+    color: blue;
+    text-decoration: none;
+  }
+  #registra a:hover{
+    text-decoration: underline;
   }
 </style>
 <body>
 
-  <h1 id="titulo">Registro de usuario</h1>
-
   <div id="formulario">
-  <form id="signupForm" method="post" action="/signup">
-    <label for="Nombre" id="nombre">Nombre</label>
-    <input type="text" id="Nombre" name="Nombre" required><br>
+    <div id="titulo">
+      <h1>Registro de usuario</h1>
+    </div>
+    <form id="signupForm" method="post" action="/signup" class="input-group">
+      <label for="Nombre" class="input-label">Nombre</label>
+      <input type="text" id="Nombre" name="Nombre" class="input-field" required>
 
-    <label for="Mail" id="mail">Correo electrónico</label>
-    <input type="text" id="Mail" name="Mail" required><br>
+      <label for="Mail" class="input-label">Correo electrónico</label>
+      <input type="text" id="Mail" name="Mail" class="input-field" required>
 
-    <label for="Contrasena" id="contrasena">Contraseña</label>
-    <input type="password" id="Contrasena" name="Contrasena" required><br>
+      <label for="Contrasena" class="input-label">Contraseña</label>
+      <input type="password" id="Contrasena" name="Contrasena" class="input-field" required>
 
-    <label for="Ubicación" id="Ubicación">Ubicación</label>
-    <input type="text" id="Ubicación" name="Ubicación" required><br>
+      <label for="Ubicación" class="input-label">Ubicación</label>
+      <input type="text" id="Ubicación" name="Ubicación" class="input-field" required>
 
-    <label type="hidden" for="Miembro" id="Miembro"></label>
-    <input type="hidden" id="Miembro" name="Miembro" value="NO" required><br>
+      <input type="hidden" id="Miembro" name="Miembro" value="NO">
 
-    <label for="Nombre_Aficion" id="Nombre_Aficion">Afición</label>
-    <input type="text" id="Nombre_Aficion" name="Nombre_Aficion" required><br>
+      <label for="Aficion" class="input-label">Aficiones</label><br>
+      <input type="radio" id="Deportes" name="Aficion" class="input-radio" value="Deportes">
+      <label for="Deportes" class="input-label">Deportes</label>
 
-    <button type="submit" id="boton">Registrarse</button>
-  </form>
+      <input type="radio" id="Musica" name="Aficion" class="input-radio" value="Musica">
+      <label for="Musica" class="input-label">Música</label>
+
+      <input type="radio" id="Viajar" name="Aficion" class="input-radio" value="Viajar">
+      <label for="Viajar" class="input-label">Viajar</label>
+
+      <input type="radio" id="Cine" name="Aficion" class="input-radio" value="Cine">
+      <label for="Cine" class="input-label">Cine</label>
+
+      <input type="radio" id="Lectura" name="Aficion" class="input-radio" value="Lectura">
+      <label for="Lectura" class="input-label">Lectura</label>
+
+      <input type="radio" id="Arte" name="Aficion" class="input-radio" value="Arte">
+      <label for="Arte" class="input-label">Arte</label>
+
+      <input type="radio" id="Jardinería" name="Aficion" class="input-radio" value="Jardinería">
+      <label for="Jardinería" class="input-label">Jardinería</label>
+
+      <input type="radio" id="Fotografía" name="Aficion" class="input-radio" value="Fotografía">
+      <label for="Fotografía" class="input-label">Fotografía</label>
+
+      <input type="radio" id="Senderismo" name="Aficion" class="input-radio" value="Senderismo">
+      <label for="Senderismo" class="input-label">Senderismo</label>
+
+      <input type="radio" id="Bailar" name="Aficion" class="input-radio" value="Bailar">
+      <label for="Bailar" class="input-label">Bailar</label>
+
+      <input type="radio" id="Juegos_de_mesa" name="Aficion" class="input-radio" value="Juegos de mesa">
+      <label for="Juegos_de_mesa" class="input-label">Juegos de mesa</label>
+
+      <input type="radio" id="Yoga" name="Aficion" class="input-radio" value="Yoga">
+      <label for="Yoga" class="input-label">Yoga</label>
+
+      <input type="radio" id="Programación" name="Aficion" class="input-radio" value="Programación">
+      <label for="Programación" class="input-label">Programación</label>
+
+      <input type="radio" id="Manualidades" name="Aficion" class="input-radio" value="Manualidades">
+      <label for="Manualidades" class="input-label">Manualidades</label>
+
+      <input type="radio" id="Videojuegos" name="Aficion" class="input-radio" value="Videojuegos">
+      <label for="Videojuegos" class="input-label">Videojuegos</label>
+
+      <input type="radio" id="Astronomía" name="Aficion" class="input-radio" value="Astronomía">
+      <label for="Astronomía" class="input-label">Astronomía</label>
+
+      <input type="radio" id="Jinete" name="Aficion" class="input-radio" value="Jinete">
+      <label for="Jinete" class="input-label">Jinete</label>
+
+      <input type="radio" id="Cosplayer" name="Aficion" class="input-radio" value="Cosplayer">
+      <label for="Cosplayer" class="input-label">Cosplayer</label>
+
+      <input type="radio" id="Anime" name="Aficion" class="input-radio" value="Anime">
+      <label for="Anime" class="input-label">Anime</label>
+
+      <input type="radio" id="Filosofía" name="Aficion" class="input-radio" value="Filosofía">
+      <label for="Filosofía" class="input-label">Filosofía</label>
+
+      <input type="radio" id="Ciencias" name="Aficion" class="input-radio" value="Ciencias">
+      <label for="Ciencias" class="input-label">Ciencias</label>
+
+      <input type="radio" id="Aprender_idiomas" name="Aficion" class="input-radio" value="Aprender idiomas">
+      <label for="Aprender_idiomas" class="input-label">Aprender idiomas</label>
+
+      <input type="radio" id="Escribir" name="Aficion" class="input-radio" value="Escribir">
+      <label for="Escribir" class="input-label">Escribir</label>
+
+      <input type="radio" id="Dibujar" name="Aficion" class="input-radio" value="Dibujar">
+      <label for="Dibujar" class="input-label">Dibujar</label>
+
+      <input type="radio" id="Cocina" name="Aficion" class="input-radio" value="Cocina">
+      <label for="Cocina" class="input-label">Cocina</label>
+
+      <input type="radio" id="Otro" name="Aficion" class="input-radio" value="Otro">
+      <label for="Otro" class="input-label">Otro</label>
+
+      <button type="submit" id="boton">Registrarse</button>
+    </form>
   </div>
 
   <p id="registra">¿Ya tienes una cuenta? <a href="./">Inicia sesión aquí</a></p>
