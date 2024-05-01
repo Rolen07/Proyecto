@@ -221,3 +221,7 @@ CREATE TABLE IF NOT EXISTS `Affinity`.`chat` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+-- Unique usuario_aficion --
+
+ALTER TABLE usuario_aficion
+ADD CONSTRAINT unique_user_hobby UNIQUE (ID_usuario, ID_aficion);
