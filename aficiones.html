@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro de usuario</title>
+  <link href="https://fonts.googleapis.com/css?family=Nobile|Abel|Ranchers" rel="stylesheet">
+  <style>
+    body {
+      background-image: url("/img/FondoWiiThingy.png");
+      background-repeat: no-repeat;
+      background-size: cover;
+      font-family: 'Arial', sans-serif;
+    }
+    #formulario {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 500px;
+      background-color: #f0f0f0;
+      padding: 30px;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    #titulo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    #titulo h1 {
+      border: 4px solid rgb(183, 0, 255);
+      border-radius: 4px;
+      font-size: 40px;
+      color: rgb(0, 64, 255);
+      background-color: ghostwhite;
+      box-shadow: 3px 3px navy;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      padding: 10px;
+    }
+    .input-group {
+      margin-bottom: 20px;
+    }
+    .input-label {
+      font-size: 20px;
+      color: #333;
+      margin-bottom: 10px;
+      position: relative;
+    }
+    .input-field {
+      width: calc(100% - 20px);
+      padding: 10px;
+      font-size: 18px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      position: relative;
+    }
+    .input-checkbox-container {
+      position: relative;
+      right: 19px;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      height: 208px;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      align-content: flex-start;
+    }
+    .input-checkbox-group {
+      display: flex;
+      align-items: center;
+      margin-right: 20px;
+    }
+    .input-checkbox {
+      margin-right: 5px;
+    }
+    .input-checkbox {
+      width: 50px;
+      flex: 0 1 50px;
+      background-color: white;
+      border: solid 1px #1c4051;
+      border-radius: 6px;
+      text-align: center;
+      font-weight: bold;
+    }
+    #boton {
+      width: 100%;
+      padding: 10px;
+      font-size: 20px;
+      background-color: rgb(34, 156, 178);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    #boton:hover {
+      background-color: #45a049;
+    }
+    #registra {
+      text-align: center;
+      font-size: 16px;
+      color: #666;
+      margin-top: 20px;
+    }
+    #registra a {
+      color: blue;
+      text-decoration: none;
+    }
+    #registra a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div id="formulario">
+    <div id="titulo">
+      <h1>Registro de usuario</h1>
+    </div>
+    <form id="signupForm" method="post" action="/aficiones" class="input-group">
+      <label class="input-label">Aficiones</label><br>
+      <div class="input-checkbox-container">
+        <div class="input-checkbox-group">
+          <input type="checkbox" id="Deportes" name="Aficion[]" class="input-checkbox" value="Deportes">
+          <label for="Deportes">Deportes</label>
+        </div>
+        <div class="input-checkbox-group">
+          <input type="checkbox" id="Musica" name="Aficion[]" class="input-checkbox" value="Musica">
+          <label for="Musica">Música</label>
+        </div>
+        <div class="input-checkbox-group">
+          <input type="checkbox" id="Viajar" name="Aficion[]" class="input-checkbox" value="Viajar">
+          <label for="Viajar">Viajar</label>
+        </div>
+        <div class="input-checkbox-group">
+          <input type="checkbox" id="Cine" name="Aficion[]" class="input-checkbox" value="Cine">
+          <label for="Cine">Cine</label>
+        </div>
+        <div class="input-checkbox-group">
+          <input type="checkbox" id="Lectura" name="Aficion[]" class="input-checkbox" value="Lectura">
+          <label for="Lectura">Lectura</label>
+        </div>
+        <div class="input-checkbox-group">
+          <input type="checkbox" id="Arte" name="Aficion[]" class="input-checkbox" value="Arte">
+          <label for="Arte">Arte</label>
+        </div>
+        <div class="input-checkbox-group">
+          <input type="checkbox" id="Jardinería" name="Aficion[]" class="input-checkbox" value="Jardinería">
+          <label for="Jardinería">Jardinería</label>
+        </div>
+        <div class="input-checkbox-group">
+          <input type="checkbox" id="Fotografía" name="Aficion[]" class="input-checkbox" value="Fotografía">
+          <label for="Fotografía">Fotografía</label>
+        </div>
+        <div class="input-checkbox-group">
+          <input type="checkbox" id="Senderismo" name="Aficion[]" class="input-checkbox" value="Senderismo">
+          <label for="Senderismo">Senderismo</label>
+        </div>
+        <div class="input-checkbox-group">
+          <input type="checkbox" id="Bailar" name="Aficion[]" class="input-checkbox" value="Bailar">
+          <label for="Bailar">Bailar</label>
+        </div>
+        <div class="input-checkbox-group">
+          <input type="checkbox" id="Juegos_de_mesa" name="Aficion[]" class="input-checkbox" value="Juegos de mesa">
+          <label for="Juegos_de_mesa">Juegos de mesa</label>
+        </div>
+        <div class="input-checkbox-group">
+          <input type="checkbox" id="Yoga" name="Aficion[]" class="input-checkbox" value="Yoga">
+          <label for="Yoga">Yoga</label>
+        </div>
+        <div class="input-checkbox-group">
+          <input type="checkbox" id="Programación" name="Aficion[]" class="input-checkbox" value="Programación">
+          <label for="Programación">Programación</label>
+        </div>
+        <div class="input-checkbox-group">
+          <input type="checkbox" id="Manualidades" name="Aficion[]" class="input-checkbox" value="Manualidades">
+          <label for="Manualidades">Manualidades</label>
+        </div>
+        <div class="input-checkbox-group">
+          <input type="checkbox" id="Videojuegos" name="Aficion[]" class="input-checkbox" value="Videojuegos">
+          <label for="Videojuegos">Videojuegos</label>
+        </div>
+        <div class="input-checkbox-group">
+          <input type="checkbox" id="Astronomía" name="Aficion[]" class="input-checkbox" value="Astronomía">
+          <label for="Astronomía">Astronomía</label>
+        </div>
+        <div class="input-checkbox-group">
+          <input type="checkbox" id="Jinete" name="Aficion[]" class="input-checkbox" value="Jinete">
+          <label for="Jinete">Jinete</label>
+        </div>
+        <div class="input-checkbox-group">
+          <input type="checkbox" id="Cosplayer" name="Aficion[]" class="input-checkbox" value="Cosplayer">
+          <label for="Cosplayer">Cosplayer</label>
+        </div>
+        <div class="input-checkbox-group">
+          <input type="checkbox" id="Anime" name="Aficion[]" class="input-checkbox" value="Anime">
+          <label for="Anime">Anime</label>
+        </div>
+        <div class="input-checkbox-group">
+          <input type="checkbox" id="Filosofía" name="Aficion[]" class="input-checkbox" value="Filosofía">
+          <label for="Filosofía">Filosofía</label>
+        </div>
+        <div class="input-checkbox-group">
+          <input type="checkbox" id="Ciencias" name="Aficion[]" class="input-checkbox" value="Ciencias">
+          <label for="Ciencias">Ciencias</label>
+        </div>
+        <div class="input-checkbox-group">
+          <input type="checkbox" id="Aprender_idiomas" name="Aficion[]" class="input-checkbox" value="Aprender idiomas">
+          <label for="Aprender_idiomas">Aprender idiomas</label>
+        </div>
+        <div class="input-checkbox-group">
+          <input type="checkbox" id="Escribir" name="Aficion[]" class="input-checkbox" value="Escribir">
+          <label for="Escribir">Escribir</label>
+        </div>
+        <div class="input-checkbox-group">
+          <input type="checkbox" id="Dibujar" name="Aficion[]" class="input-checkbox" value="Dibujar">
+          <label for="Dibujar">Dibujar</label>
+        </div>
+        <div class="input-checkbox-group">
+          <input type="checkbox" id="Cocina" name="Aficion[]" class="input-checkbox" value="Cocina">
+          <label for="Cocina">Cocina</label>
+        </div>
+      </div>
+
+      <button type="submit" id="boton">Registrarse</button>
+    </form>
+  </div>
+ 
+</body>
+</html>

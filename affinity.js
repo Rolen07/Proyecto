@@ -36,9 +36,33 @@ app.post('/signup', (req, res) => {
   connection.query('INSERT INTO Usuarios SET ?', cuenta, (error, results) => {
     if (error) throw error;
     //res.send('Usuario registrado exitosamente');
+    res.sendFile(__dirname + '/aficiones.html');
+  });
+});
+
+// Obtención de la página aficiones
+app.get('/aficiones', (req, res) => {
+  res.sendFile(__dirname + '/aficiones.html');
+});
+
+// Ruta de registro de aficiones
+
+app.post('/aficiones', (req, res) => {
+  const cuenta = {
+    Nombre: req.body.Nombre,
+    Mail: req.body.Mail,
+    Contrasena: req.body.Contrasena,
+    Ubicación: req.body.Ubicación,
+    Miembro: req.body.Miembro
+  };
+  // Insertar nuevo usuario en la base de datos
+  connection.query('INSERT INTO Usuarios SET ?', cuenta, (error, results) => {
+    if (error) throw error;
+    //res.send('Usuario registrado exitosamente');
     res.sendFile(__dirname + '/login.html');
   });
 });
+
 
 // Ruta de inicio de sesión
 app.get('/', (req, res) => {
