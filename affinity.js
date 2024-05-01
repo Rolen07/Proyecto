@@ -91,23 +91,54 @@ app.get('/aficiones', (req, res) => {
 app.post('/aficiones', (req, res) => {
   // Obtener el ID del usuario de la sesión
   const ID_usuario = req.session.ID_usuario; // Suponiendo que has guardado el ID del usuario en la sesión durante el inicio de sesión
+  const aficionesSeleccionadas = req.body.ID_aficion; // Suponiendo que req.body.aficiones es un array con las ID de las aficiones seleccionadas
   
-  // Crear el objeto con los datos de la afición
-  const aficioncuenta = {
-    ID_usuario: ID_usuario, // Usar el ID del usuario de la sesión
-    ID_aficion: req.body.ID_aficion,
-  };
+  // Array para almacenar los datos de las aficiones del usuario
+  const datosAficiones = [];
 
-  // Insertar el registro en la base de datos
-  connection.query('INSERT INTO usuario_aficion SET ?', aficioncuenta, (error, results) => {
+  // Crear un objeto con los datos de cada afición y agregarlo al array
+  aficionesSeleccionadas.forEach(ID_aficion => {
+    const aficioncuenta = {
+      ID_usuario: ID_usuario,
+      ID_aficion: ID_aficion
+    };
+    datosAficiones.push(aficioncuenta);
+  });
+
+  // Insertar los registros en la base de datos
+  connection.query('INSERT INTO usuario_aficion (ID_usuario, ID_aficion) VALUES ?', [datosAficiones.map(aficion => [aficion.ID_usuario, aficion.ID_aficion])], (error, results) => {
     if (error) {
-      console.error('Error al registrar la afición:', error);
-      res.status(500).send('Error interno del servidor al registrar la afición');
+      console.error('Error al registrar las aficiones:', error);
+      res.status(500).send('Error interno del servidor al registrar las aficiones');
       return;
     }
     res.sendFile(__dirname + '/login.html');
   });
 });
+
+
+
+////////////////////// CODIGO DE AFICIONES ////////////////////////////////
+connection.connect((err) => {
+  if (err) {
+      console.error('Error de conexión a la base de datos:', err);
+      return;
+  }
+  console.log('Conectado a la base de datos MySQL.');
+});
+
+app.get('/datos', (req, res) => {
+  connection.query("SELECT ID_aficion,Nombre_aficion FROM aficiones", (err, rows) => {
+      if (err) {
+          console.error('Error al ejecutar la consulta:', err);
+          res.status(500).send('Error interno del servidor');
+          return;
+      }
+      res.json(rows);
+  });
+});
+
+
 
 
 // Ruta de inicio de sesión
@@ -131,6 +162,9 @@ app.post('/login', (req, res) => {
     }
   });
 });
+
+
+
 
 
 ///////////////////////////   LISTAR REGISTROS /////////////////////////////////
