@@ -104,3 +104,26 @@ app.use('/modif', actualizar);
 app.listen(port, () => {
   console.log(`Servidor escuchando en el puerto ${port}`);
 });
+
+
+
+
+////////////////////// CODIGO DE AFICIONES ////////////////////////////////
+connection.connect((err) => {
+  if (err) {
+      console.error('Error de conexión a la base de datos:', err);
+      return;
+  }
+  console.log('Conectado a la base de datos MySQL.');
+});
+
+app.get('/datos', (req, res) => {
+  connection.query("SELECT Nombre_aficion FROM aficiones", (err, rows) => {
+      if (err) {
+          console.error('Error al ejecutar la consulta:', err);
+          res.status(500).send('Error interno del servidor');
+          return;
+      }
+      res.json(rows);
+  });
+});
