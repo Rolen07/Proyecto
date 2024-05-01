@@ -31,7 +31,7 @@ app.get('/signup', (req, res) => {
   res.sendFile(__dirname + '/signup.html');
 });
 
-// Ruta de registro de usuario
+// Ruta de registro de usuario y creación de sesión
 app.post('/signup', (req, res) => {
   const cuenta = {
     Nombre: req.body.Nombre,
@@ -40,42 +40,45 @@ app.post('/signup', (req, res) => {
     Ubicación: req.body.Ubicación,
     Miembro: req.body.Miembro
   };
+
   // Insertar nuevo usuario en la base de datos
   connection.query('INSERT INTO Usuarios SET ?', cuenta, (error, results) => {
-    if (error) throw error;
-    //res.send('Usuario registrado exitosamente');
+    if (error) {
+      console.error('Error al registrar el usuario:', error);
+      res.status(500).send('Error interno del servidor al registrar el usuario');
+      return;
+    }
+    
+    // Crear la sesión de usuario con el ID del usuario recién insertado
+    req.session.ID_usuario = results.insertId; // Assuming 'insertId' contains the ID of the newly inserted user
+    req.session.Mail = req.body.Mail;
+    
     res.sendFile(__dirname + '/aficiones.html');
   });
 });
-
-app.post('/signup', (req, res) => {
-  // Verificar las credenciales del usuario
-  if (usuarioValido) {
-      // Crear una sesión de usuario
-      req.session.ID_usuario = usuario.ID_usuario;
-      req.session.Mail = usuario.Mail;
-      res.send('Iniciaste sesión correctamente');
-  } else {
-      res.send('Credenciales incorrectas');
-  }
-});
-
-
-
-
-
+// Ruta de inicio de sesión
 app.post('/login', (req, res) => {
-  // Verificar las credenciales del usuario
-  if (usuarioValido) {
-      // Crear una sesión de usuario
-      req.session.usuarioId = usuario.id;
-      req.session.username = usuario.username;
-      res.send('Iniciaste sesión correctamente');
-  } else {
-      res.send('Credenciales incorrectas');
-  }
-});
+  const mail = req.body.Mail;
+  const contrasena = req.body.Contrasena;
 
+  // Realizar consulta a la base de datos para verificar el inicio de sesión
+  connection.query('SELECT * FROM Usuarios WHERE Mail = ? AND Contrasena = ?', [mail, contrasena], (error, results) => {
+    if (error) {
+      console.error('Error al verificar las credenciales de inicio de sesión:', error);
+      res.status(500).send('Error interno del servidor al verificar las credenciales de inicio de sesión');
+      return;
+    }
+
+    if (results.length > 0) {
+      // Crear la sesión de usuario
+      req.session.ID_usuario = results[0].ID_usuario;
+      req.session.Mail = mail;
+      res.sendFile(__dirname + '/index.html');
+    } else {
+      res.redirect('/erroracceso');
+    }
+  });
+});
 
 
 // Obtención de la página aficiones
