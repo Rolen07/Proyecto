@@ -87,12 +87,12 @@
     <div id="titulo">
       <h1>Lista de aficiones</h1>
     </div>
-    <form id="signupForm" method="post" action="/aficiones" class="input-group">
-    <table id="data-table">
-        <!-- Los datos se llenarán aquí utilizando JavaScript -->
-    </table>
-      <button type="submit" id="boton">Registrarse</button>
-    </form>
+    <form id="signupForm" method="POST" action="/aficiones">
+      <table id="data-table">
+          <!-- Datos se llenarán aquí usando JavaScript -->
+      </table>
+      <button type="submit" id="boton">Guardar Aficiones</button>
+  </form>
   </div>
 
   <script>
@@ -112,7 +112,7 @@
         for (var i = 0; i < datos.length; i += 5) {
             html += "<tr>";
             for (var j = i; j < Math.min(i + 5, datos.length); j++) {
-                html += "<td><input type='checkbox' name='dato' value='" + datos[j].ID_aficion + "'>" + datos[j].Nombre_aficion + "</td>";
+              html += "<td><input type='checkbox' name='ID_aficion' value='" + datos[j].ID_aficion + "'>" + datos[j].Nombre_aficion + "</td>";
             }
             html += "</tr>";
         }
