@@ -17,7 +17,7 @@
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
-      width: 500px;
+      width: 800px;
       background-color: #f0f0f0;
       padding: 30px;
       border: 2px solid #ccc;
@@ -68,11 +68,17 @@
     table {
             border-collapse: collapse;
             width: 100%;
+            table-layout:fixed;
+            position: relative;
+            bottom: 10px;
     }
     th, td {
             border: none;
             text-align: left;
             padding: 8px;
+            width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
     }
   </style>
 </head>
@@ -106,7 +112,7 @@
         for (var i = 0; i < datos.length; i += 5) {
             html += "<tr>";
             for (var j = i; j < Math.min(i + 5, datos.length); j++) {
-                html += "<td><input type='checkbox' name='dato' value='" + datos[j].Nombre_aficion + "'>" + datos[j].Nombre_aficion + "</td>";
+                html += "<td><input type='checkbox' name='dato' value='" + datos[j].ID_aficion + "'>" + datos[j].Nombre_aficion + "</td>";
             }
             html += "</tr>";
         }

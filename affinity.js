@@ -48,15 +48,12 @@ app.get('/aficiones', (req, res) => {
 // Ruta de registro de aficiones
 
 app.post('/aficiones', (req, res) => {
-  const cuenta = {
-    Nombre: req.body.Nombre,
-    Mail: req.body.Mail,
-    Contrasena: req.body.Contrasena,
-    Ubicación: req.body.Ubicación,
-    Miembro: req.body.Miembro
+  const aficioncuenta = {
+    ID_usuario: req.body.ID_usuario,
+    ID_aficion: req.body.ID_aficion,
   };
   // Insertar nuevo usuario en la base de datos
-  connection.query('INSERT INTO Usuarios SET ?', cuenta, (error, results) => {
+  connection.query('INSERT INTO usuario_aficion SET ?', aficioncuenta, (error, results) => {
     if (error) throw error;
     //res.send('Usuario registrado exitosamente');
     res.sendFile(__dirname + '/login.html');
@@ -118,7 +115,7 @@ connection.connect((err) => {
 });
 
 app.get('/datos', (req, res) => {
-  connection.query("SELECT Nombre_aficion FROM aficiones", (err, rows) => {
+  connection.query("SELECT ID_aficion,Nombre_aficion FROM aficiones", (err, rows) => {
       if (err) {
           console.error('Error al ejecutar la consulta:', err);
           res.status(500).send('Error interno del servidor');
