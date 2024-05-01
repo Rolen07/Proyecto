@@ -195,5 +195,28 @@ INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000010', '000000
 INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000010', '00000025'); -- Dibujar
 INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000010', '00000001'); -- Lectura
 
--- Continuar asignando las aficiones a los usuarios restantes según sea necesario
+-- -----------------------------------------------------
+-- Table `Affinity`.`chat`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `Affinity`.`chat` ;
+
+CREATE TABLE IF NOT EXISTS `Affinity`.`chat` (
+  `ID_chat` INT NOT NULL AUTO_INCREMENT,
+  `Emisor` INT NOT NULL,
+  `Receptor` INT NOT NULL,
+  `Texto` VARCHAR(2000) NOT NULL,
+  PRIMARY KEY (`ID_chat`),
+  INDEX `Emisor_idx` (`Emisor` ASC) VISIBLE,
+  INDEX `Receptor_idx` (`Receptor` ASC) VISIBLE,
+  CONSTRAINT `Emisor`
+    FOREIGN KEY (`Emisor`)
+    REFERENCES `Affinity`.`Usuarios` (`ID_usuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `Receptor`
+    FOREIGN KEY (`Receptor`)
+    REFERENCES `Affinity`.`Usuarios` (`ID_usuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
