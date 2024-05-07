@@ -25,6 +25,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.set('view engine', 'ejs');
 
+// Presentacion
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/presentacion.html');
+});
+
 
 // Ruta de registro de Usuarios
 app.get('/signup', (req, res) => {
@@ -142,7 +147,7 @@ app.get('/datos', (req, res) => {
 
 
 // Ruta de inicio de sesión
-app.get('/', (req, res) => {
+app.get('/login', (req, res) => {
   res.sendFile(__dirname + '/login.html');
 });
 
