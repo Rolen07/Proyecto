@@ -13,6 +13,9 @@
         }
 
         .main-container {
+            position: absolute;
+            left: 21%;
+            bottom: 10%;
             padding: 30px;
             background-color: rgba(240, 240, 240, 0.8);
             border: 2px solid #ccc;
@@ -73,10 +76,25 @@
             text-align: center;
             color: #666;
         }
+        
+        a {
+            position: relative;
+            left: 34.5%;
+            margin: 10px;
+            text-decoration: none;
+            border-color: red;
+            border: 3px solid orange;
+            border-radius: 3px;
+            color: ghostwhite;
+            border-style: solid;
+            background-color: rgba(255, 165, 0, 0.4);
+            box-shadow: 3px 3px rgb(41, 170, 255);
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
     </style>
 </head>
 <body>
-
+    <img src="/img/LogoAffinitySolSQRvar.png" width="100px">
     <!-- Contenedor principal -->
     <div class="main-container">
 
@@ -101,6 +119,8 @@
             <p>Teléfono: 123-456-789</p>
         </section>
 
+        <a href="./signup" onmouseover="this.width=50;this.height=50;" onmouseout="this.width=40;this.height=40;" width="40" height="40" alt="">Registrarse</a> 
+        <a href="./login" onmouseover="this.width=50;this.height=50;" onmouseout="this.width=40;this.height=40;" width="40" height="40" alt="">Inicia sesión</a>
         <!-- Sección de Pie de Página -->
         <footer>
             <p>&copy; 2024 Affinity Solutions. Todos los derechos reservados.</p>
