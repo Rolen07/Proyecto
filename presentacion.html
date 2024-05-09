@@ -14,10 +14,11 @@
 
         .main-container {
             position: absolute;
-            left: 21%;
-            bottom: 10%;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
             padding: 30px;
-            background-color: rgba(240, 240, 240, 0.8);
+            background-color: rgb(240, 240, 240);
             border: 2px solid #ccc;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -119,9 +120,8 @@
             <p>Email: tcrevillen@educa.madrid.org</p>
             <p>Teléfono: 123-456-789</p>
         </section>
-
-        <a href="./signup" onmouseover="this.style.fontSize = '25px'" onmouseout="this.style.fontSize = '17px'" alt="">Registrarse</a> 
-        <a href="./login" onmouseover="this.style.fontSize = '25px'" onmouseout="this.style.fontSize = '17px'" alt="">Inicia sesión</a>
+        <a class="registro" href="./signup" onmouseover="this.style.fontSize = '25px'" onmouseout="this.style.fontSize = '17px'" alt="">Registrarse</a> 
+        <a class="login" href="./login" onmouseover="this.style.fontSize = '25px'" onmouseout="this.style.fontSize = '17px'" alt="">Inicia sesión</a>
         <!-- Sección de Pie de Página -->
         <footer>
             <p>&copy; 2024 Affinity Solutions. Todos los derechos reservados.</p>
