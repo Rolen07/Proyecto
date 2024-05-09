@@ -32,15 +32,16 @@
       border: 4px solid orange;
       border-radius: 4px;
       font-size: 40px;
-      color: rgb(41, 170, 255);
-      background-color: ghostwhite;
+      color: ghostwhite;
+      background-color: rgba(255, 165, 0, 0.4);
       box-shadow: 3px 3px rgb(41, 170, 255);
       font-family: Verdana, Geneva, Tahoma, sans-serif;
-      padding: 10px
+      padding: 10px;
     }
-    #boton {
+    #boton{
       width: 100%;
       padding: 10px;
+      position: relative;
       font-size: 20px;
       background-color: rgb(34, 156, 178);
       color: white;
@@ -49,9 +50,11 @@
       cursor: pointer;
       transition: background-color 0.3s;
     }
-    #boton:hover {
-      background-color: #45a049;
+
+    #boton:hover{
+      background-color: rgba(255, 166, 0, 0.648);
     }
+
     #registra {
       text-align: center;
       font-size: 16px;
@@ -83,6 +86,7 @@
   </style>
 </head>
 <body>
+  <img src="/img/LogoAffinitySolSQRvar.png" width="100px">
   <div id="formulario">
     <div id="titulo">
       <h1>Lista de aficiones</h1>
@@ -125,5 +129,6 @@
         cargarDatos();
     };
 </script>
+
 </body>
 </html>
