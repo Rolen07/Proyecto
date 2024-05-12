@@ -74,6 +74,8 @@
 
 <script>
   // Verificar si hay un ID de usuario almacenado en la sesión del navegador
+  const consultaSQL = SELECT * FROM usuarios WHERE ID_usuario IN ( SELECT ID_usuario FROM usuario_aficion WHERE ID_aficion IN ( SELECT ID_aficion FROM usuario_aficion WHERE ID_usuario = ${userID}));
+  
   const userId = sessionStorage.getItem('userID');
 
   if (userId) {
@@ -89,5 +91,7 @@
     sessionStorage.removeItem('userID');
     window.location.href = '/'; // Redirigir a la página de inicio de sesión
   }
+
+
 </script>
 </html>
