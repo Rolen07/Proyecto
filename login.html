@@ -117,4 +117,25 @@
     <p id="registra">¿No dispones de una cuenta? <a href="./signup">Regístrate aquí</a></p>
   </div>
 </body>
+
+<script>
+  function obtenerIdUsuario() {
+    // Obtener el correo electrónico del usuario del formulario
+    const mail = document.getElementById('Mail').value;
+
+    // Realizar una solicitud AJAX para obtener el ID del usuario
+    fetch('/obtenerIdUsuario?Mail=' + mail)
+      .then(response => response.json())
+      .then(data => {
+        // Almacenar el ID del usuario en una variable
+        const userID = data.ID_usuario;
+
+        // Hacer lo que necesites con el ID del usuario, como redirigir a otra página
+        console.log('ID del usuario:', userID);
+        // Por ejemplo, podrías redirigir a la página de inicio del usuario
+        window.location.href = '/inicio';
+      })
+      .catch(error => console.error('Error al obtener el ID del usuario:', error));
+  }
+</script>
 </html>

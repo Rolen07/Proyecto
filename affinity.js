@@ -61,6 +61,14 @@ app.post('/signup', (req, res) => {
     res.sendFile(__dirname + '/aficiones.html');
   });
 });
+
+
+
+// Fichero de página de inicio
+app.get('/inicio', (req, res) => {
+  res.sendFile(__dirname + '/index.html');
+});
+
 // Ruta de inicio de sesión
 app.post('/inicio', (req, res) => {
   const mail = req.body.Mail;
@@ -84,6 +92,7 @@ app.post('/inicio', (req, res) => {
     }
   });
 });
+
 
 
 // Obtención de la página aficiones
@@ -151,36 +160,32 @@ app.get('/login', (req, res) => {
   res.sendFile(__dirname + '/login.html');
 });
 
-// Ruta de validación de inicio de sesión
-app.post('/login', (req, res) => {
-  const mail = req.body.Mail;
-  const contrasena = req.body.Contrasena;
 
-  // Realizar consulta a la base de datos para verificar el inicio de sesión
-  connection.query('SELECT * FROM Usuarios WHERE Mail = ? AND Contrasena = ?', [mail, contrasena], (error, results) => {
+
+
+
+
+// Ruta para obtener el ID del usuario
+app.get('/obtenerIdUsuario', (req, res) => {
+  const mail = req.query.Mail;
+
+  // Realizar consulta a la base de datos para obtener el ID del usuario
+  connection.query('SELECT ID_usuario FROM Usuarios WHERE Mail = ?', [mail], (error, results) => {
     if (error) {
-      console.error('Error al verificar las credenciales de inicio de sesión:', error);
-      res.status(500).send('Error interno del servidor al verificar las credenciales de inicio de sesión');
+      console.error('Error al obtener el ID del usuario:', error);
+      res.status(500).json({ error: 'Error interno del servidor al obtener el ID del usuario' });
       return;
     }
 
     if (results.length > 0) {
-      // Crear la sesión de usuario
-      req.session.ID_usuario = results[0].ID_usuario;
-      req.session.Mail = mail;
-      res.sendFile(dirname + '/index.html');
+      // Enviar el ID del usuario como respuesta
+      res.json({ ID_usuario: results[0].ID_usuario });
     } else {
-      res.redirect('/erroracceso'); // Redirigir a una página de error de acceso si las credenciales son incorrectas
+      // Si no se encuentra ningún usuario con el correo electrónico proporcionado, devolver un error
+      res.status(404).json({ error: 'Usuario no encontrado' });
     }
   });
 });
-
-
-
-
-
-
-
 
 
 
