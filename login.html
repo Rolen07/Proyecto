@@ -118,33 +118,37 @@
   </div>
 
   <script>
-    // Función para obtener el ID del usuario desde la base de datos
-    function obtenerIdUsuarioDesdeBaseDeDatos() {
-      // Aquí deberías hacer una petición al servidor para obtener el ID del usuario
-      // Puedes usar XMLHttpRequest, Fetch API o cualquier otra técnica de comunicación con el servidor
-      // Por simplicidad, supondré que obtienes el ID del usuario de alguna manera
-      // Aquí simplemente retorno un ID de ejemplo, pero en tu aplicación real deberías hacer la consulta al servidor
-      return userId; // Por ejemplo, el ID del usuario obtenido de la base de datos
-    }
-
     // Evento que se ejecutará al enviar el formulario de inicio de sesión
     document.getElementById('loginForm').addEventListener('submit', function(event) {
       // Evitar que el formulario se envíe de forma predeterminada (para que no se recargue la página)
       event.preventDefault();
 
-      // Obtener el ID del usuario
-      const userId = SELECT ID_usuario from usuarios WHERE Mail = variable1;
-      console.log(userId)
+      // Obtener el valor de los campos de entrada
+      const mail = document.getElementById('Mail').value;
+      const contrasena = document.getElementById('Contrasena').value;
 
-      // Almacenar el ID del usuario en localStorage si existe
-      if (userId) {
-        localStorage.setItem('userId', userId);
-
+      // Enviar los datos al servidor
+      fetch('/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ mail: mail, contrasena: contrasena })
+      })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Error al iniciar sesión');
+        }
+      })
+      .then(data => {
         // Redirigir al usuario a la página de inicio
         window.location.href = '/inicio'; // Cambiar '/inicio' por la URL de la página de inicio
-      } else {
-        console.error('No se pudo obtener el ID del usuario');
-      }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
     });
   </script>
 </body>
