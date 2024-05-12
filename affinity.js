@@ -62,7 +62,7 @@ app.post('/signup', (req, res) => {
   });
 });
 // Ruta de inicio de sesión
-app.post('/login', (req, res) => {
+app.post('/inicio', (req, res) => {
   const mail = req.body.Mail;
   const contrasena = req.body.Contrasena;
 
