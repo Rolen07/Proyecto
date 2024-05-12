@@ -104,7 +104,7 @@
     <div id="titulo">
       <h1>Datos de usuario</h1>
     </div>
-    <form id="loginForm" method="post" action="/inicio" class="input-group">
+    <form id="loginForm" method="post" class="input-group">
       <label for="Mail" class="input-label">Correo electrónico</label>
       <input type="text" id="Mail" name="Mail" class="input-field" required>
 
@@ -112,7 +112,7 @@
       <label for="Contrasena" class="input-label">Contraseña</label>
       <input type="password" id="Contrasena" name="Contrasena" class="input-field" required>
     
-      <button type="submit" id="boton" onclick="obtenerIdUsuario()">Iniciar sesión</button>
+      <button type="button" id="boton" onclick="obtenerIdUsuario()">Iniciar sesión</button>
     </form>
     <p id="registra">¿No dispones de una cuenta? <a href="./signup">Regístrate aquí</a></p>
   </div>

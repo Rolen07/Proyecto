@@ -23,46 +23,71 @@
     top: 1%;
   }
 
+  #boton-inicio-sesion {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    padding: 10px;
+    font-size: 16px;
+    background-color: rgb(34, 156, 178);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  #boton-inicio-sesion:hover {
+    background-color: rgba(255, 166, 0, 0.648);
+  }
 
 </style>
 <body background="/img/FondoWiiThingy.png">
   <div id="cuadrosticky">
-  <button align="left" id="logo"><a href="/"><img src="/img/LogoAffinitySolSQRvar.png" width="100px"></a></button>
-  <img id="banner" src="/img/LogoAffinitySolutions.png" width="">
+    <button align="left" id="logo"><a href="/"><img src="/img/LogoAffinitySolSQRvar.png" width="100px"></a></button>
+    <img id="banner" src="/img/LogoAffinitySolutions.png" width="">
   </div>
   <div class="centro">
-  <br>
-  <a href="./list/users"
-  class="listar" style="float: left; position: relative; top: 10%; left: 10%;"
-  >Usuarios</a>
-  <br><br><br><br><br><br><br><br><br>
+    <br>
+    <a href="./list/users"
+    class="listar" style="float: left; position: relative; top: 10%; left: 10%;"
+    >Usuarios</a>
+    <br><br><br><br><br><br><br><br><br>
 
-  <a href="./list/groups" 
-  class="listar" style="float: right; position: relative; right: 10%;"
-  >Grupos<a>
-  <br><br><br><br><br><br><br><br><br>
-  
-  <a href="./list/members" 
-  class="listar" style="float: left; position: relative;  bottom: 10%; left: 10%;"
-  >Miembros</a>
+    <a href="./list/groups" 
+    class="listar" style="float: right; position: relative; right: 10%;"
+    >Grupos<a>
+    <br><br><br><br><br><br><br><br><br>
+    
+    <a href="./list/members" 
+    class="listar" style="float: left; position: relative;  bottom: 10%; left: 10%;"
+    >Miembros</a>
   </div>
   <br>
   <div class="pie">
-  <h3>© 2024 Affinity Solutions co.</h3>
+    <h3>© 2024 Affinity Solutions co.</h3>
   </div>
+
+  <button id="boton-inicio-sesion" onclick="cerrarSesion()">Cerrar sesión</button>
+
 </body>
 
 <script>
+  // Verificar si hay un ID de usuario almacenado en la sesión del navegador
+  const userId = sessionStorage.getItem('userID');
 
-// Obtiene el ID del usuario almacenado en localStorage
-const userId = localStorage.getItem('userId');
+  if (userId) {
+      // El ID del usuario está disponible, puedes usarlo para realizar acciones en la página
+      console.log('ID del usuario actual:', userId);
+  } else {
+      // El ID del usuario no está disponible, puede ser que el usuario no haya iniciado sesión
+      console.log('El usuario no ha iniciado sesión');
+  }
 
-if (userId) {
-    // El ID del usuario está disponible, puedes usarlo para realizar acciones en la página
-    console.log('ID del usuario actual:', userId);
-} else {
-    // El ID del usuario no está disponible, puede ser que el usuario no haya iniciado sesión
-    console.log('El usuario no ha iniciado sesión');
-}
+  // Función para cerrar sesión
+  function cerrarSesion() {
+    sessionStorage.removeItem('userID');
+    window.location.href = '/'; // Redirigir a la página de inicio de sesión
+  }
 </script>
 </html>
