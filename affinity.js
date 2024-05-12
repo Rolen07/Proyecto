@@ -155,18 +155,36 @@ app.get('/login', (req, res) => {
 app.post('/login', (req, res) => {
   const mail = req.body.Mail;
   const contrasena = req.body.Contrasena;
+
   // Realizar consulta a la base de datos para verificar el inicio de sesión
   connection.query('SELECT * FROM Usuarios WHERE Mail = ? AND Contrasena = ?', [mail, contrasena], (error, results) => {
-    if (error) throw error;
+    if (error) {
+      console.error('Error al verificar las credenciales de inicio de sesión:', error);
+      res.status(500).send('Error interno del servidor al verificar las credenciales de inicio de sesión');
+      return;
+    }
 
     if (results.length > 0) {
-     // res.send('Inicio de sesión exitoso');
-      res.sendFile(__dirname + '/index.html');
+      // Crear la sesión de usuario
+      req.session.ID_usuario = results[0].ID_usuario;
+      req.session.Mail = mail;
+      res.sendFile(dirname + '/index.html');
     } else {
-      res.redirect('/erroracceso');
+      res.redirect('/erroracceso'); // Redirigir a una página de error de acceso si las credenciales son incorrectas
     }
   });
 });
+
+
+
+
+
+
+
+
+
+
+
 
 
 
