@@ -112,51 +112,9 @@
       <label for="Contrasena" class="input-label">Contraseña</label>
       <input type="password" id="Contrasena" name="Contrasena" class="input-field" required>
     
-      <button type="submit" id="boton">Iniciar sesión</button>
+      <button type="submit" id="boton" onclick="obtenerIdUsuario()">Iniciar sesión</button>
     </form>
     <p id="registra">¿No dispones de una cuenta? <a href="./signup">Regístrate aquí</a></p>
   </div>
-
-  <script>
-    // Evento que se ejecutará al enviar el formulario de inicio de sesión
-    document.getElementById('loginForm').addEventListener('submit', function(event) {
-      // Evitar que el formulario se envíe de forma predeterminada (para que no se recargue la página)
-      event.preventDefault();
-
-      // Obtener el valor de los campos de entrada
-      const mail = document.getElementById('Mail').value;
-      const contrasena = document.getElementById('Contrasena').value;
-
-      // Enviar los datos al servidor para autenticación
-      fetch('/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ mail: mail, contrasena: contrasena })
-      })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error('Error al iniciar sesión');
-        }
-      })
-      .then(data => {
-        // Almacenar el ID del usuario en localStorage si existe
-        if (data.userId) {
-          localStorage.setItem('userId', data.userId);
-
-          // Redirigir al usuario a la página de inicio
-          window.location.href = '/inicio'; // Cambiar '/inicio' por la URL de la página de inicio
-        } else {
-          console.error('Credenciales incorrectas');
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
-    });
-  </script>
 </body>
 </html>
