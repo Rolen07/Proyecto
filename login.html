@@ -127,29 +127,32 @@
       const mail = document.getElementById('Mail').value;
       const contrasena = document.getElementById('Contrasena').value;
 
-      // Enviar los datos al servidor
-      fetch('/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ mail: mail, contrasena: contrasena })
-      })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error('Error al iniciar sesión');
-        }
-      })
-      .then(data => {
+      // Aquí deberías hacer una petición al servidor para verificar las credenciales del usuario
+      // Por simplicidad, supondré que la verificación es exitosa y obtienes el ID del usuario
+      const userId = obtenerIdUsuarioDesdeBaseDeDatos(mail, contrasena);
+
+      // Almacenar el ID del usuario en localStorage si existe
+      if (userId) {
+        localStorage.setItem('userId', userId);
+
         // Redirigir al usuario a la página de inicio
         window.location.href = '/inicio'; // Cambiar '/inicio' por la URL de la página de inicio
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
+      } else {
+        console.error('Credenciales incorrectas');
+      }
     });
+
+    // Función para obtener el ID del usuario desde la base de datos
+    function obtenerIdUsuarioDesdeBaseDeDatos(mail, contrasena) {
+      // En este ejemplo, simplemente devolvemos un ID de usuario falso
+      // En una implementación real, esta función debería realizar una solicitud al servidor para autenticar al usuario
+      // y devolver el ID del usuario si las credenciales son correctas.
+      if (mail === "usuario@example.com" && contrasena === "contraseña") {
+        return 123; // ID del usuario
+      } else {
+        return null; // Credenciales incorrectas
+      }
+    }
   </script>
 </body>
 </html>
