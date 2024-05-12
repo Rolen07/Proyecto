@@ -4,10 +4,32 @@
   <title>Red Social</title>
   <link rel="stylesheet" type="text/css" href="/css/estilos.css"/>
 </head>
+
+<style>
+  #cuadrosticky {
+    position: sticky;
+    top: 2%;
+  }
+  #banner {
+    position: relative;
+    left: 27%;
+    top: 20%;
+    width: 45%;
+    height: 35%;
+  }
+  #logo {
+    position: absolute;
+    left: 0.1%;
+    top: 1%;
+  }
+
+
+</style>
 <body background="/img/FondoWiiThingy.png">
-  <button align="left"><a href="/"><img src="/img/LogoAffinitySolSQRvar.png" width="100px"></a></button>
-  <h1 style="text-align: center; color: salmon; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; position: absolute; top: 15px; left: 46%;">RED SOCIAL</h1>
-  <br><br><br><br><br><br><br><br><br>
+  <div id="cuadrosticky">
+  <button align="left" id="logo"><a href="/"><img src="/img/LogoAffinitySolSQRvar.png" width="100px"></a></button>
+  <img id="banner" src="/img/LogoAffinitySolutions.png" width="">
+  </div>
   <div class="centro">
   <br>
   <a href="./list/users"
@@ -29,4 +51,18 @@
   <h3>© 2024 Affinity Solutions co.</h3>
   </div>
 </body>
+
+<script>
+
+// Obtiene el ID del usuario almacenado en localStorage
+const userId = localStorage.getItem('userId');
+
+if (userId) {
+    // El ID del usuario está disponible, puedes usarlo para realizar acciones en la página
+    console.log('ID del usuario actual:', userId);
+} else {
+    // El ID del usuario no está disponible, puede ser que el usuario no haya iniciado sesión
+    console.log('El usuario no ha iniciado sesión');
+}
+</script>
 </html>

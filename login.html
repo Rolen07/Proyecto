@@ -112,9 +112,16 @@
       <label for="Contrasena" class="input-label">Contraseña</label>
       <input type="password" id="Contrasena" name="Contrasena" class="input-field" required>
     
-      <button type="submit" id="boton">Iniciar sesión</button>
+      <button type="submit" id="boton" onclick="obtenerIdUsuario()">Iniciar sesión</button>
     </form>
     <p id="registra">¿No dispones de una cuenta? <a href="./signup">Regístrate aquí</a></p>
   </div>
 </body>
+
+<script>
+const userId = obtenerIdUsuarioDesdeBaseDeDatos(); // Aquí deberías tener una función que obtenga el ID del usuario
+
+// Almacena el ID del usuario en localStorage
+localStorage.setItem('userId', userId);
+</script>
 </html>
