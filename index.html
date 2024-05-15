@@ -49,19 +49,7 @@
   </div>
   <div class="centro">
     <br>
-    <a href="./list/users"
-    class="listar" style="float: left; position: relative; top: 10%; left: 10%;"
-    >Usuarios</a>
-    <br><br><br><br><br><br><br><br><br>
-
-    <a href="./list/groups" 
-    class="listar" style="float: right; position: relative; right: 10%;"
-    >Grupos<a>
-    <br><br><br><br><br><br><br><br><br>
     
-    <a href="./list/members" 
-    class="listar" style="float: left; position: relative;  bottom: 10%; left: 10%;"
-    >Miembros</a>
   </div>
   <br>
   <div class="pie">
@@ -74,7 +62,6 @@
 
 <script>
   // Verificar si hay un ID de usuario almacenado en la sesión del navegador
-  const consultaSQL = SELECT * FROM usuarios WHERE ID_usuario IN ( SELECT ID_usuario FROM usuario_aficion WHERE ID_aficion IN ( SELECT ID_aficion FROM usuario_aficion WHERE ID_usuario = ${userID}));
   
   const userId = sessionStorage.getItem('userID');
 
