@@ -4,7 +4,6 @@
   <title>Red Social</title>
   <link rel="stylesheet" type="text/css" href="/css/estilos.css"/>
 </head>
-
 <style>
   #cuadrosticky {
     position: sticky;
@@ -22,7 +21,6 @@
     left: 0.1%;
     top: 1%;
   }
-
   #boton-inicio-sesion {
     position: fixed;
     top: 10px;
@@ -36,11 +34,9 @@
     cursor: pointer;
     transition: background-color 0.3s;
   }
-
   #boton-inicio-sesion:hover {
     background-color: rgba(255, 166, 0, 0.648);
   }
-
 </style>
 <body background="/img/FondoWiiThingy.png">
   <div id="cuadrosticky">
@@ -48,37 +44,36 @@
     <img id="banner" src="/img/LogoAffinitySolutions.png" width="">
   </div>
   <div class="centro">
-    <br>
-    
+    <table rules="all">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Correo</th>
+          <th>Ubicación</th>
+        </tr>
+      </thead>
+      <tbody>
+          <% users.forEach(usuario => { %>
+            <tr>
+              <td><%= usuario.Nombre %></td>
+              <td><%= usuario.Mail %></td>
+              <td><%= usuario.Ubicación %></td>
+            </tr>
+          <% }); %>
+      </tbody>
+    </table>
   </div>
   <br>
   <div class="pie">
     <h3>© 2024 Affinity Solutions co.</h3>
   </div>
-
   <button id="boton-inicio-sesion" onclick="cerrarSesion()">Cerrar sesión</button>
-
 </body>
-
 <script>
-  // Verificar si hay un ID de usuario almacenado en la sesión del navegador
-  
-  const userId = sessionStorage.getItem('userID');
-
-  if (userId) {
-      // El ID del usuario está disponible, puedes usarlo para realizar acciones en la página
-      console.log('ID del usuario actual:', userId);
-  } else {
-      // El ID del usuario no está disponible, puede ser que el usuario no haya iniciado sesión
-      console.log('El usuario no ha iniciado sesión');
-  }
-
   // Función para cerrar sesión
   function cerrarSesion() {
     sessionStorage.removeItem('userID');
     window.location.href = '/'; // Redirigir a la página de inicio de sesión
   }
-
-
 </script>
 </html>

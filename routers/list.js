@@ -9,7 +9,8 @@ const connection = require('../database.js');
 
 // Ruta para obtener todos los registros de la tabla "usuarios"
   listar.get('/users', (req, res) => {
-    const query = 'SELECT * FROM usuarios';
+    const userID = sessionStorage.getItem('userID');
+    const query = 'SELECT * FROM usuarios WHERE ID_usuario IN (SELECT ID_usuario FROM usuario_aficion WHERE ID_aficion IN (SELECT ID_aficion FROM usuario_aficion WHERE ID_usuario = ${userID})) ORDER BY RAND() LIMIT 1';
   
     connection.query(query, (error, results) => {
       if (error) {

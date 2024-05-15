@@ -225,3 +225,28 @@ ENGINE = InnoDB;
 
 ALTER TABLE usuario_aficion
 ADD CONSTRAINT unique_user_hobby UNIQUE (ID_usuario, ID_aficion);
+
+
+-- Crear una tabla auxiliar para llevar un registro de los usuarios seleccionados
+CREATE TABLE IF NOT EXISTS usuarios_seleccionados (
+    ID_usuario INT PRIMARY KEY
+);
+
+-- Seleccionar un usuario aleatorio que no haya sido seleccionado previamente
+SELECT *
+FROM usuarios
+WHERE ID_usuario IN (
+    SELECT ID_usuario 
+    FROM usuario_aficion 
+    WHERE ID_aficion IN (
+        SELECT ID_aficion 
+        FROM usuario_aficion 
+        WHERE ID_usuario = ${userID}
+    )
+)
+AND ID_usuario NOT IN (SELECT ID_usuario FROM usuarios_seleccionados)
+ORDER BY RAND()
+LIMIT 1;
+
+-- Insertar el usuario seleccionado en la tabla auxiliar
+INSERT INTO usuarios_seleccionados (ID_usuario) VALUES (ID_usuario);
