@@ -61,7 +61,7 @@ app.post('/signup', (req, res) => {
 // Fichero de página de inicio
 app.get('/inicio', (req, res) => {
   const userID = req.session.ID_usuario;
-  connection.query('SELECT * FROM usuarios WHERE ID_usuario IN (SELECT ID_usuario FROM usuario_aficion WHERE ID_aficion IN (SELECT ID_aficion FROM usuario_aficion WHERE ID_usuario = ?)) ORDER BY RAND() LIMIT 1', [userID], (error, results) => {
+  connection.query('SELECT * FROM usuarios ORDER BY RAND() LIMIT 1', [userID], (error, results) => {
     if (error) {
       console.error('Error al obtener los usuarios:', error);
       res.status(500).send('Error interno del servidor al obtener los usuarios');
@@ -93,7 +93,7 @@ app.post('/inicio', (req, res) => {
       
       // Realizar otra consulta para obtener todos los usuarios o solo los usuarios que quieras mostrar
       const userID = req.session.ID_usuario;
-      connection.query('SELECT * FROM usuarios WHERE ID_usuario IN (SELECT ID_usuario FROM usuario_aficion WHERE ID_aficion IN (SELECT ID_aficion FROM usuario_aficion WHERE ID_usuario = ?)) ORDER BY RAND() LIMIT 1', [userID], (error, results) => {
+      connection.query('SELECT * FROM usuarios ORDER BY RAND() LIMIT 1', [userID], (error, results) => {
         if (error) {
           console.error('Error al obtener los usuarios:', err);
           res.status(500).send('Error interno del servidor al obtener los usuarios');
