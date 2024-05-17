@@ -6,33 +6,27 @@ const app = express();
 const port = 3000;
 
 const connection = require('./database.js');
-app.use(express.static(path.join(__dirname, 'public')));  // Donde vas a colocar tus ficheros de imagen, css, javascript
+app.use(express.static(path.join(__dirname, 'public')));
 
-// Configurar middleware para analizar el cuerpo de las solicitudes
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Configurar el motor de vistas EJS
 app.set('view engine', 'ejs');
 
-// Configurar middleware de sesión
 app.use(session({
   secret: 'secretKey',
   resave: false,
   saveUninitialized: true
 }));
 
-// Página de presentación
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/presentacion.html');
 });
 
-// Ruta de registro de usuarios
 app.get('/signup', (req, res) => {
   res.sendFile(__dirname + '/signup.html');
 });
 
-// Ruta de registro de usuario y creación de sesión
 app.post('/signup', (req, res) => {
   const cuenta = {
     Nombre: req.body.Nombre,
@@ -42,7 +36,6 @@ app.post('/signup', (req, res) => {
     Miembro: req.body.Miembro
   };
 
-  // Insertar nuevo usuario en la base de datos
   connection.query('INSERT INTO Usuarios SET ?', cuenta, (error, results) => {
     if (error) {
       console.error('Error al registrar el usuario:', error);
@@ -50,7 +43,6 @@ app.post('/signup', (req, res) => {
       return;
     }
 
-    // Crear la sesión de usuario con el ID del usuario recién insertado
     req.session.ID_usuario = results.insertId;
     req.session.Mail = req.body.Mail;
 
@@ -58,48 +50,58 @@ app.post('/signup', (req, res) => {
   });
 });
 
-// Fichero de página de inicio
 app.get('/inicio', (req, res) => {
-  const query = `
-    SELECT u.ID_usuario, u.Nombre, u.Mail, u.Ubicación, a.Nombre_aficion
-    FROM usuarios u
-    LEFT JOIN usuario_aficion ua ON u.ID_usuario = ua.ID_usuario
-    LEFT JOIN aficiones a ON ua.ID_aficion = a.ID_aficion
+  const queryUsuario = `
+    SELECT ID_usuario, Nombre, Mail, Ubicación
+    FROM usuarios
     ORDER BY RAND() LIMIT 1;
   `;
 
-  connection.query(query, (error, results) => {
-    if (error) {
-      console.error('Error al obtener el usuario y sus aficiones:', error);
-      res.status(500).send('Error interno del servidor al obtener el usuario y sus aficiones');
+  connection.query(queryUsuario, (errorUsuario, resultsUsuario) => {
+    if (errorUsuario) {
+      console.error('Error al obtener el usuario:', errorUsuario);
+      res.status(500).send('Error interno del servidor al obtener el usuario');
       return;
     }
 
-    if (results.length === 0) {
+    if (resultsUsuario.length === 0) {
       res.status(404).send('No se encontraron usuarios');
       return;
     }
 
-    // Agrupar aficiones del usuario seleccionado
-    const usuario = {
-      ID_usuario: results[0].ID_usuario,
-      Nombre: results[0].Nombre,
-      Mail: results[0].Mail,
-      Ubicación: results[0].Ubicación,
-      Aficiones: results.map(row => row.Nombre_aficion).filter(aficion => aficion !== null)
-    };
+    const userID = resultsUsuario[0].ID_usuario;
 
-    // Renderizar la vista y pasar el usuario
-    res.render('index', { user: usuario });
+    const queryAficiones = `
+      SELECT a.Nombre_aficion
+      FROM usuario_aficion ua
+      INNER JOIN aficiones a ON ua.ID_aficion = a.ID_aficion
+      WHERE ua.ID_usuario = ?
+    `;
+
+    connection.query(queryAficiones, [userID], (errorAficiones, resultsAficiones) => {
+      if (errorAficiones) {
+        console.error('Error al obtener las aficiones del usuario:', errorAficiones);
+        res.status(500).send('Error interno del servidor al obtener las aficiones del usuario');
+        return;
+      }
+
+      const usuario = {
+        ID_usuario: resultsUsuario[0].ID_usuario,
+        Nombre: resultsUsuario[0].Nombre,
+        Mail: resultsUsuario[0].Mail,
+        Ubicación: resultsUsuario[0].Ubicación,
+        Aficiones: resultsAficiones.map(row => row.Nombre_aficion)
+      };
+
+      res.render('index', { user: usuario });
+    });
   });
 });
 
-// Ruta de inicio de sesión
 app.post('/inicio', (req, res) => {
   const mail = req.body.Mail;
   const contrasena = req.body.Contrasena;
 
-  // Realizar consulta a la base de datos para verificar el inicio de sesión
   connection.query('SELECT * FROM usuarios WHERE Mail = ? AND Contrasena = ?', [mail, contrasena], (error, results) => {
     if (error) {
       console.error('Error al verificar las credenciales de inicio de sesión:', error);
@@ -108,42 +110,53 @@ app.post('/inicio', (req, res) => {
     }
 
     if (results.length > 0) {
-      // Crear la sesión de usuario
       req.session.ID_usuario = results[0].ID_usuario;
       req.session.Mail = mail;
       
-      // Realizar otra consulta para obtener un usuario aleatorio con sus aficiones
-      const query = `
-        SELECT u.ID_usuario, u.Nombre, u.Mail, u.Ubicación, a.Nombre_aficion
-        FROM usuarios u
-        LEFT JOIN usuario_aficion ua ON u.ID_usuario = ua.ID_usuario
-        LEFT JOIN aficiones a ON ua.ID_aficion = a.ID_aficion
+      const queryUsuario = `
+        SELECT ID_usuario, Nombre, Mail, Ubicación
+        FROM usuarios
         ORDER BY RAND() LIMIT 1;
       `;
 
-      connection.query(query, (error, results) => {
-        if (error) {
-          console.error('Error al obtener el usuario:', error);
+      connection.query(queryUsuario, (errorUsuario, resultsUsuario) => {
+        if (errorUsuario) {
+          console.error('Error al obtener el usuario:', errorUsuario);
           res.status(500).send('Error interno del servidor al obtener el usuario');
           return;
         }
 
-        if (results.length === 0) {
+        if (resultsUsuario.length === 0) {
           res.status(404).send('No se encontraron usuarios');
           return;
         }
 
-        // Agrupar aficiones del usuario seleccionado
-        const usuario = {
-          ID_usuario: results[0].ID_usuario,
-          Nombre: results[0].Nombre,
-          Mail: results[0].Mail,
-          Ubicación: results[0].Ubicación,
-          Aficiones: results.map(row => row.Nombre_aficion).filter(aficion => aficion !== null)
-        };
+        const userID = resultsUsuario[0].ID_usuario;
 
-        // Renderizar la vista y pasar el usuario
-        res.render('index', { user: usuario });
+        const queryAficiones = `
+          SELECT a.Nombre_aficion
+          FROM usuario_aficion ua
+          INNER JOIN aficiones a ON ua.ID_aficion = a.ID_aficion
+          WHERE ua.ID_usuario = ?
+        `;
+
+        connection.query(queryAficiones, [userID], (errorAficiones, resultsAficiones) => {
+          if (errorAficiones) {
+            console.error('Error al obtener las aficiones del usuario:', errorAficiones);
+            res.status(500).send('Error interno del servidor al obtener las aficiones del usuario');
+            return;
+          }
+
+          const usuario = {
+            ID_usuario: resultsUsuario[0].ID_usuario,
+            Nombre: resultsUsuario[0].Nombre,
+            Mail: resultsUsuario[0].Mail,
+            Ubicación: resultsUsuario[0].Ubicación,
+            Aficiones: resultsAficiones.map(row => row.Nombre_aficion)
+          };
+
+          res.render('index', { user: usuario });
+        });
       });
     } else {
       res.redirect('/erroracceso');
@@ -151,12 +164,10 @@ app.post('/inicio', (req, res) => {
   });
 });
 
-// Obtención de la página aficiones
 app.get('/aficiones', (req, res) => {
   res.render('aficiones');
 });
 
-// Ruta de registro de aficiones
 app.post('/aficiones', (req, res) => {
   const ID_usuario = req.session.ID_usuario;
   const aficionesSeleccionadas = req.body.ID_aficion;
@@ -173,7 +184,6 @@ app.post('/aficiones', (req, res) => {
   });
 });
 
-// Ruta para obtener datos de aficiones
 app.get('/datos', (req, res) => {
   connection.query("SELECT ID_aficion, Nombre_aficion FROM aficiones", (err, rows) => {
     if (err) {
@@ -185,12 +195,10 @@ app.get('/datos', (req, res) => {
   });
 });
 
-// Ruta de inicio de sesión
 app.get('/login', (req, res) => {
   res.sendFile(__dirname + '/login.html');
 });
 
-// Ruta para obtener el ID del usuario
 app.get('/obtenerIdUsuario', (req, res) => {
   const mail = req.query.Mail;
 
@@ -209,7 +217,6 @@ app.get('/obtenerIdUsuario', (req, res) => {
   });
 });
 
-// Rutas para listar, eliminar y actualizar registros
 const listar = require('./routers/list.js');
 app.use('/list', listar);
 
@@ -219,7 +226,6 @@ app.use('/delete', eliminar);
 const actualizar = require('./routers/update.js');
 app.use('/modif', actualizar);
 
-// Iniciar el servidor
 app.listen(port, () => {
   console.log(`Servidor escuchando en el puerto ${port}`);
 });
