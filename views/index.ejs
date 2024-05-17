@@ -50,16 +50,22 @@
           <th>Nombre</th>
           <th>Correo</th>
           <th>Ubicación</th>
+          <th>Aficiones</th>
         </tr>
       </thead>
       <tbody>
-          <% users.forEach(usuario => { %>
-            <tr>
-              <td><%= usuario.Nombre %></td>
-              <td><%= usuario.Mail %></td>
-              <td><%= usuario.Ubicación %></td>
-            </tr>
-          <% }); %>
+        <tr>
+          <td><%= user.Nombre %></td>
+          <td><%= user.Mail %></td>
+          <td><%= user.Ubicación %></td>
+          <td>
+            <ul>
+              <% user.Aficiones.forEach(aficion => { %>
+                <li><%= aficion %></li>
+              <% }); %>
+            </ul>
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>

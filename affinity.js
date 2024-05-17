@@ -60,16 +60,37 @@ app.post('/signup', (req, res) => {
 
 // Fichero de página de inicio
 app.get('/inicio', (req, res) => {
-  const userID = req.session.ID_usuario;
-  connection.query('SELECT * FROM usuarios ORDER BY RAND() LIMIT 1', [userID], (error, results) => {
+  const query = `
+    SELECT u.ID_usuario, u.Nombre, u.Mail, u.Ubicación, a.Nombre_aficion
+    FROM usuarios u
+    LEFT JOIN usuario_aficion ua ON u.ID_usuario = ua.ID_usuario
+    LEFT JOIN aficiones a ON ua.ID_aficion = a.ID_aficion
+    ORDER BY RAND() LIMIT 1;
+  `;
+
+  connection.query(query, (error, results) => {
     if (error) {
-      console.error('Error al obtener los usuarios:', error);
-      res.status(500).send('Error interno del servidor al obtener los usuarios');
+      console.error('Error al obtener el usuario y sus aficiones:', error);
+      res.status(500).send('Error interno del servidor al obtener el usuario y sus aficiones');
       return;
     }
 
-    // Renderizar la vista y pasar la lista de usuarios
-    res.render('index', { users: results });
+    if (results.length === 0) {
+      res.status(404).send('No se encontraron usuarios');
+      return;
+    }
+
+    // Agrupar aficiones del usuario seleccionado
+    const usuario = {
+      ID_usuario: results[0].ID_usuario,
+      Nombre: results[0].Nombre,
+      Mail: results[0].Mail,
+      Ubicación: results[0].Ubicación,
+      Aficiones: results.map(row => row.Nombre_aficion).filter(aficion => aficion !== null)
+    };
+
+    // Renderizar la vista y pasar el usuario
+    res.render('index', { user: usuario });
   });
 });
 
@@ -91,24 +112,44 @@ app.post('/inicio', (req, res) => {
       req.session.ID_usuario = results[0].ID_usuario;
       req.session.Mail = mail;
       
-      // Realizar otra consulta para obtener todos los usuarios o solo los usuarios que quieras mostrar
-      const userID = req.session.ID_usuario;
-      connection.query('SELECT * FROM usuarios ORDER BY RAND() LIMIT 1', [userID], (error, results) => {
+      // Realizar otra consulta para obtener un usuario aleatorio con sus aficiones
+      const query = `
+        SELECT u.ID_usuario, u.Nombre, u.Mail, u.Ubicación, a.Nombre_aficion
+        FROM usuarios u
+        LEFT JOIN usuario_aficion ua ON u.ID_usuario = ua.ID_usuario
+        LEFT JOIN aficiones a ON ua.ID_aficion = a.ID_aficion
+        ORDER BY RAND() LIMIT 1;
+      `;
+
+      connection.query(query, (error, results) => {
         if (error) {
-          console.error('Error al obtener los usuarios:', err);
-          res.status(500).send('Error interno del servidor al obtener los usuarios');
+          console.error('Error al obtener el usuario:', error);
+          res.status(500).send('Error interno del servidor al obtener el usuario');
           return;
         }
 
-        // Renderizar la vista y pasar la lista de usuarios
-        res.render('index', { users: results });
+        if (results.length === 0) {
+          res.status(404).send('No se encontraron usuarios');
+          return;
+        }
+
+        // Agrupar aficiones del usuario seleccionado
+        const usuario = {
+          ID_usuario: results[0].ID_usuario,
+          Nombre: results[0].Nombre,
+          Mail: results[0].Mail,
+          Ubicación: results[0].Ubicación,
+          Aficiones: results.map(row => row.Nombre_aficion).filter(aficion => aficion !== null)
+        };
+
+        // Renderizar la vista y pasar el usuario
+        res.render('index', { user: usuario });
       });
     } else {
       res.redirect('/erroracceso');
     }
   });
 });
-
 
 // Obtención de la página aficiones
 app.get('/aficiones', (req, res) => {
