@@ -25,7 +25,7 @@
   #boton-inicio-sesion {
     position: fixed;
     top: 10px;
-    right: 10px;
+    right: 100px;
     padding: 10px;
     font-size: 16px;
     background-color: rgb(34, 156, 178);
@@ -85,7 +85,7 @@
     background-color: rgba(255, 166, 0, 0.648);
   }
 
-  #perfillogo {
+  #perfilcuadro {
     margin-bottom: 10px;
   }
 
@@ -114,14 +114,20 @@
     left: 76%;
     top: 66%;
   }
+
+  #perfil {
+    position: absolute;
+    left: 95%;
+  }
 </style>
+<span id="perfil"><img src="/img/PerfilUsuario.png" width="60px" height="60px"></span>
 <body>
   <div id="cuadrosticky">
     <button align="left" id="logo"><a href="/"><img src="/img/LogoAffinitySolSQRvar.png" width="100px"></a></button>
     <img id="banner" src="/img/LogoAffinitySolutions.png" width="">
   </div>
   <div class="centro">
-    <span id="perfillogo"><img src="/img/PerfilUsuario.png" width="100px"></span>
+    <span id="perfilcuadro"><img src="/img/PerfilUsuario.png" width="100px"></span>
     <span id="nombre"><%= user.Nombre %></span><hr>
     <span id="ubicacion"><%= user.Ubicación %></span><hr>
     <% user.Aficiones.forEach(aficion => { %>
