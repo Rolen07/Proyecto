@@ -2,7 +2,6 @@
 <html>
 <head>
   <title>Red Social</title>
-  <link rel="stylesheet" type="text/css" href="/css/estilos.css"/>
 </head>
 <style>
   #cuadrosticky {
@@ -20,6 +19,8 @@
     position: absolute;
     left: 0.1%;
     top: 1%;
+    border-style: none;
+    background-color: rgba(255, 255, 255, 0);
   }
   #boton-inicio-sesion {
     position: fixed;
@@ -37,6 +38,56 @@
   #boton-inicio-sesion:hover {
     background-color: rgba(255, 166, 0, 0.648);
   }
+  body{
+      background-image: url("/img/FondoWiiThingy.png");
+      background-repeat: no-repeat;
+      background-size: cover;
+      font-family: 'Arial', sans-serif;
+    }
+  .centro{
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 500px;
+      background-color: #f0f0f0;
+      padding: 30px;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .pie{
+    position: absolute; 
+    bottom: 3px; 
+    width: 99%;
+    text-align: center;
+    color: orange;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+    #boton{
+      width: 100%;
+      padding: 10px;
+      position: relative;
+      top: 10px;
+      font-size: 20px;
+      background-color: rgb(34, 156, 178);
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    #boton:hover{
+      background-color: rgba(255, 166, 0, 0.648);
+    }
+
+
+
+
+
+
 </style>
 <body background="/img/FondoWiiThingy.png">
   <div id="cuadrosticky">
@@ -44,30 +95,11 @@
     <img id="banner" src="/img/LogoAffinitySolutions.png" width="">
   </div>
   <div class="centro">
-    <table rules="all">
-      <thead>
-        <tr>
-          <th>Nombre</th>
-          <th>Correo</th>
-          <th>Ubicación</th>
-          <th>Aficiones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><%= user.Nombre %></td>
-          <td><%= user.Mail %></td>
-          <td><%= user.Ubicación %></td>
-          <td>
-            <ul>
-              <% user.Aficiones.forEach(aficion => { %>
-                <li><%= aficion %></li>
-              <% }); %>
-            </ul>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <%= user.Nombre %>
+    <%= user.Ubicación %>
+    <% user.Aficiones.forEach(aficion => { %>
+      <%= aficion %>
+    <% }); %>
   </div>
   <br>
   <div class="pie">

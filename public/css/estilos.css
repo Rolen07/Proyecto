@@ -45,19 +45,6 @@ button{
     text-decoration: none;
 }
 
-.centro{
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 500px;
-    background-color: #f0f0f0;
-    padding: 30px;
-    border: 2px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
 label{
     color: silver;
     font-weight: bolder;
