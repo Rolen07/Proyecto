@@ -180,7 +180,7 @@ app.post('/aficiones', (req, res) => {
       res.status(500).send('Error interno del servidor al registrar las aficiones');
       return;
     }
-    res.render('index');
+    res.sendFile(__dirname + '/login.html');
   });
 });
 

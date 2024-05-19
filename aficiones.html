@@ -69,19 +69,26 @@
       text-decoration: underline;
     }
     table {
-            border-collapse: collapse;
-            width: 100%;
-            table-layout:fixed;
-            position: relative;
-            bottom: 10px;
+      border-collapse: collapse;
+      width: 100%;
+      table-layout: fixed;
+      position: relative;
+      bottom: 10px;
     }
     th, td {
-            border: none;
-            text-align: left;
-            padding: 8px;
-            width: 150px;
-            overflow: hidden;
-            text-overflow: ellipsis;
+      border: none;
+      text-align: left;
+      padding: 8px;
+      width: 150px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .error-message {
+      color: red;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 10px;
+      display: none;
     }
   </style>
 </head>
@@ -91,44 +98,58 @@
     <div id="titulo">
       <h1>Lista de aficiones</h1>
     </div>
-    <form id="signupForm" method="POST" action="/aficiones">
+    <form id="signupForm" method="POST" action="/aficiones" onsubmit="return validarSeleccion()">
       <table id="data-table">
-          <!-- Datos se llenarán aquí usando JavaScript -->
+        <!-- Datos se llenarán aquí usando JavaScript -->
       </table>
       <button type="submit" id="boton">Guardar Aficiones</button>
-  </form>
+      <div class="error-message" id="error-message">Por favor, selecciona entre 3 y 7 aficiones.</div>
+    </form>
   </div>
 
   <script>
     // Función para cargar los datos desde el servidor
-    // Función para cargar los datos desde el servidor
     function cargarDatos() {
-        fetch('/datos')
-            .then(response => response.json())
-            .then(datos => mostrarDatos(datos));
+      fetch('/datos')
+        .then(response => response.json())
+        .then(datos => mostrarDatos(datos));
     }
 
     // Función para mostrar los datos en la tabla
     function mostrarDatos(datos) {
-        var table = document.getElementById("data-table");
-        var html = "";
+      var table = document.getElementById("data-table");
+      var html = "";
 
-        for (var i = 0; i < datos.length; i += 5) {
-            html += "<tr>";
-            for (var j = i; j < Math.min(i + 5, datos.length); j++) {
-              html += "<td><input type='checkbox' name='ID_aficion' value='" + datos[j].ID_aficion + "'>" + datos[j].Nombre_aficion + "</td>";
-            }
-            html += "</tr>";
+      for (var i = 0; i < datos.length; i += 5) {
+        html += "<tr>";
+        for (var j = i; j < Math.min(i + 5, datos.length); j++) {
+          html += "<td><input type='checkbox' name='ID_aficion' value='" + datos[j].ID_aficion + "'>" + datos[j].Nombre_aficion + "</td>";
         }
+        html += "</tr>";
+      }
 
-        table.innerHTML = html;
+      table.innerHTML = html;
+    }
+
+    // Función para validar la selección de aficiones
+    function validarSeleccion() {
+      var checkboxes = document.querySelectorAll('input[name="ID_aficion"]:checked');
+      var errorMessage = document.getElementById('error-message');
+
+      if (checkboxes.length < 3 || checkboxes.length > 7) {
+        errorMessage.style.display = 'block';
+        return false;
+      } else {
+        errorMessage.style.display = 'none';
+        return true;
+      }
     }
 
     // Llamar a la función para cargar los datos cuando la página se cargue
     window.onload = function() {
-        cargarDatos();
+      cargarDatos();
     };
-</script>
+  </script>
 
 </body>
 </html>
