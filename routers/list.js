@@ -54,4 +54,20 @@ listar.get('/members', (req, res) => {
   
 
 
+ //Página para presentar los datos del perfil según su ID
+ listar.get('/perfil', (req, res)=> {
+  const parametro = url.parse(req.url, true);
+  const idusuario = parametro.query.ID_usuario;
+  const query = 'SELECT * FROM usuarios WHERE `ID_usuario`="' + idusuario + '"';
+  
+  connection.query(query, (error, results) => {
+    if (error) {
+      console.error('Error al obtener los registros de la tabla "usuarios": ', error);
+      res.status(500).send('Error del servidor');
+    } else {
+      res.render('perfilindividual', { perfil: results });
+    }
+  });
+});
+
 module.exports = listar;

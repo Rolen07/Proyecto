@@ -158,7 +158,7 @@
     if (userID) {
       console.log('ID del usuario:', userID);
       // Establecer el enlace del perfil con la ID del usuario
-      document.getElementById('profileLink').href = '/profile/' + userID;
+      document.getElementById('profileLink').href = '/list/perfil?ID_usuario=' + userID;
     } else {
       // Si no hay ID del usuario, redirigir al inicio de sesión
       window.location.href = '/';

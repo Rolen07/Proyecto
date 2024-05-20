@@ -216,9 +216,14 @@ app.get('/obtenerIdUsuario', (req, res) => {
     if (results.length > 0) {
       res.json({ ID_usuario: results[0].ID_usuario });
     } else {
-      res.status(404).json({ error: 'banana' });
+      res.status(404).json({ error: 'Error de usuario' });
     }
   });
+});
+
+// Página del perfil de usuario individual
+app.get('/signup', (req, res) => {
+  res.sendFile(__dirname + '/signup.html');
 });
 
 const listar = require('./routers/list.js');
