@@ -46,11 +46,13 @@ app.post('/signup', (req, res) => {
     req.session.ID_usuario = results.insertId;
     req.session.Mail = req.body.Mail;
 
-    res.sendFile(__dirname + '/aficiones.html');
+    res.redirect('/aficiones');
   });
 });
 
-app.get('/inicio', (req, res) => {
+// Se ha cambiado el nombre de 'inicio' a 'principal' en app.get y app.post
+
+app.get('/principal', (req, res) => {
   const queryUsuario = `
     SELECT ID_usuario, Nombre, Mail, Ubicación
     FROM usuarios
@@ -98,7 +100,7 @@ app.get('/inicio', (req, res) => {
   });
 });
 
-app.post('/inicio', (req, res) => {
+app.post('/principal', (req, res) => {
   const mail = req.body.Mail;
   const contrasena = req.body.Contrasena;
 
@@ -164,8 +166,10 @@ app.post('/inicio', (req, res) => {
   });
 });
 
+// Esto soluciona el mapa de la dirección de aficiones cuando se crea el usuario
+
 app.get('/aficiones', (req, res) => {
-  res.render('aficiones');
+  res.sendFile(__dirname + '/aficiones.html');
 });
 
 app.post('/aficiones', (req, res) => {
@@ -180,7 +184,7 @@ app.post('/aficiones', (req, res) => {
       res.status(500).send('Error interno del servidor al registrar las aficiones');
       return;
     }
-    res.sendFile(__dirname + '/login.html');
+    res.redirect('/login');
   });
 });
 
