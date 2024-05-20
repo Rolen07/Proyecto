@@ -216,7 +216,7 @@ app.get('/obtenerIdUsuario', (req, res) => {
     if (results.length > 0) {
       res.json({ ID_usuario: results[0].ID_usuario });
     } else {
-      res.status(404).json({ error: 'Usuario no encontrado' });
+      res.status(404).json({ error: 'banana' });
     }
   });
 });
