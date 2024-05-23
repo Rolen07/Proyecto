@@ -89,44 +89,58 @@
     .dropdown:hover .dropbtn {
       background-color: #3e8e41;
     }
-    .nombre {
+    .nombrelabel {
       position: absolute;
       bottom: 70%;
       left: 10%;
       font-size: 20px;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-    .mail {
+    .maillabel {
       position: absolute;
-      bottom: 50%;
+      bottom: 60%;
       left: 10%;
       font-size: 20px;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-    .ubicacion {
+    .ubicacionlabel {
       position: absolute;
-      bottom: 30%;
+      bottom: 49%;
       left: 10%;
       font-size: 20px;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-    #nomusu {
+    .contrasenalabel {
+      position: absolute;
+      bottom: 39%;
+      left: 10%;
+      font-size: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    #name {
       position: absolute;
       bottom: 69%;
       left: 47%;
       font-size: 20px;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-    #mailusu {
+    #mail {
       position: absolute;
-      bottom: 49%;
+      bottom: 58%;
       left: 47%;
       font-size: 20px;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-    #ubiusu {
+    #ubicacion {
       position: absolute;
-      bottom: 30%;
+      bottom: 48%;
+      left: 47%;
+      font-size: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    #contrasena {
+      position: absolute;
+      bottom: 38%;
       left: 47%;
       font-size: 20px;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -152,21 +166,23 @@
     <button align="left" id="logo"><a href="/"><img src="/img/LogoAffinitySolSQRvar.png" width="100px"></a></button>
   </div>
   <form method="post">
-  <div class="centro">
-    <h1 id="nombrecentro"><u>Mi Perfil</u></h1>
-    <% perfil.forEach(user => { %>
-        <input id="iduser" hidden value="<%= user.ID_usuario %>"></input>
-        <label class="nombre">-&nbsp;<u>Nombre:</u></label>
-        <input type="text" value="<%= user.Nombre %>" id="nomusu"></input>
-        <label class="mail">-&nbsp;<u>Correo electrónico:</u></label>
-        <input type="text" value="<%= user.Mail %>" id="mailusu"></input>
-        <label class="ubicacion">-&nbsp;<u>Ubicación:</u></label>
-        <input type="text" value="<%= user.Ubicación %>" id="ubiusu"></input>
-    <% }); %>
-    <button type="submit" id="botonact" onclick="actualizarDatos(event)">Actualizar datos</button>
-    <button type="submit" id="botonborrar" onclick="borrarCuenta(event)">Borrar cuenta</button>
+    <div class="centro">
+      <h1 id="nombrecentro"><u>Mi Perfil</u></h1>
+      <% perfil.forEach(user => { %>
+      <input type="hidden" name="iduser" value="<%= user.ID_usuario %>">
+      <label class="nombrelabel">-&nbsp;<u>Nombre:</u></label>
+      <input type="text" name="name" value="<%= user.Nombre %>" id="name">
+      <label class="maillabel">-&nbsp;<u>Correo electrónico:</u></label>
+      <input type="email" name="mail" value="<%= user.Mail %>" id="mail">
+      <label class="ubicacionlabel">-&nbsp;<u>Ubicación:</u></label>
+      <input type="text" name="ubicacion" value="<%= user.Ubicación %>" id="ubicacion">
+      <label class="contrasenalabel">-&nbsp;<u>Contraseña:</u></label>
+      <input type="password" name="contrasena" value="<%= user.Contrasena %>" id="contrasena">
+      <button type="submit" id="botonact" onclick="actualizarDatos(event)">Actualizar datos</button>
+      <button type="button" id="botonborrar" onclick="borrarCuenta(event)">Borrar cuenta</button>
+      <% }); %>
+    </div>
   </form>
-  </div>
   <%- include ('./parcial/pie') %>
   <div class="dropdown">
     <span><img src="/img/PerfilUsuario.png" width="60px" height="60px" class="dropbtn"></span>
@@ -176,21 +192,25 @@
   </div>
 </body>
 <script>
-  const userID = sessionStorage.getItem('userID');
-  
+
   function actualizarDatos(event) {
       event.preventDefault();
-      console.log(userID);
       const form = document.querySelector('form');
       form.action = "/modif/actdatos";
       form.submit();
   }
 
   function borrarCuenta(event) {
-      event.preventDefault();
-      const form = document.querySelector('form');
-      form.action = "/borcuenta";
-      form.submit();
+      let condicion = "";
+      condicion = prompt("Introduce 'Si' para confirmar la acción");
+      if (condicion == "Si" || condicion == "si" || condicion == "SI") {
+        event.preventDefault();
+        const form = document.querySelector('form');
+        form.action = "/delete/borcuenta";
+        form.submit();
+      } else {
+        console.log("weon");
+      }
   }
 
   function cerrarSesion() {
