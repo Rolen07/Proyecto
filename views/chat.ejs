@@ -84,7 +84,6 @@
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const userID = sessionStorage.getItem('userID');
-      const receptorID = '<%= receptorID %>';
       const chatForm = document.getElementById('chat-form');
       const messagesContainer = document.getElementById('messages');
       const ID_conversacion = document.getElementById('ID_conversacion');
@@ -94,7 +93,7 @@
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ Usuario1: userID, Usuario2: receptorID })
+        body: JSON.stringify({ ID_conversacion: ID_conversacion})
       })
       .then(response => response.json())
       .then(data => {

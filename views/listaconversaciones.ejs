@@ -171,12 +171,12 @@
     <form method="post">
       <% conversaciones.forEach(conversacion => { %>
         <input type="hidden" name="idconversacion" value="<%= conversacion.ID_conversacion %>">
-        <label class="usuario1label">-&nbsp;<u>Usuario1:</u></label>
-        <input type="text" name="usuario1" value="<%= conversacion.Usuario1 %>" id="usuario1">
-        <label class="usuario2label">-&nbsp;<u>Usuario2:</u></label>
-        <input type="text" name="usuario2" value="<%= conversacion.Usuario2 %>" id="usuario2">
+        <input type="hidden" name="usuario1" value="<%= conversacion.Usuario1 %>" id="usuario1">
+        <input type="hidden" name="usuario2" value="<%= conversacion.Usuario2 %>" id="usuario2">
+        <span id="chat"><a href="/chat?ID_conversacion=<%= conversacion.ID_conversacion %>"><img src="/img/LogoChat.png" width="100px" height="100px"></a></span>
       <% }); %>
     </form>
+    
   </div>
   <%- include ('./parcial/pie') %>
   <div class="dropdown">
@@ -187,25 +187,16 @@
   </div>
 </body>
 <script>
-
-  function actualizarDatos(event) {
-      event.preventDefault();
-      const form = document.querySelector('form');
-      form.action = "/modif/actdatos";
-      form.submit();
-  }
-
-  function borrarCuenta(event) {
-      let condicion = "";
-      condicion = prompt("Introduce 'Si' para confirmar la acción");
-      if (condicion == "Si" || condicion == "si" || condicion == "SI") {
-        event.preventDefault();
-        const form = document.querySelector('form');
-        form.action = "/delete/borcuenta";
-        form.submit();
-      }
-  }
-
+    const userID = sessionStorage.getItem('userID');
+    // Verificar si la ID del usuario está disponible
+    if (userID) {
+      console.log('ID del usuario:', userID);
+      // Establecer el enlace del perfil con la ID del usuario
+      document.getElementById('chatList').href = '/list/chats?Usuario1=' + userID;
+    } else {
+      // Si no hay ID del usuario, redirigir al inicio de sesión
+      window.location.href = '/';
+    }
   function cerrarSesion() {
       sessionStorage.removeItem('userID');
       window.location.href = '/'; // Redirigir a la página de inicio de sesión

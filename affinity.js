@@ -154,8 +154,8 @@ app.post('/aficiones', (req, res) => {
 // Ruta para obtener una conversación
 
 app.get('/chat', (req, res) => {
-  const receptorID = req.query.receptorID;
-  res.render('chat', { receptorID });
+  const ID_conversacion = req.query.ID_conversacion;
+  res.render('chat', { ID_conversacion });
 });
 
 // Ruta para establecer una conversación
@@ -235,21 +235,6 @@ app.get('/chat/mensaje/:ID_conversacion', (req, res) => {
     res.json(results);
   });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 app.get('/datos', (req, res) => {
   connection.query("SELECT ID_aficion, Nombre_aficion FROM aficiones", (err, rows) => {

@@ -136,7 +136,7 @@
     <% user.Aficiones.forEach(aficion => { %>
       <span id="aficiones"><%= aficion %></span>
     <% }); %>
-    <span id="chat"><a href="/chat?receptorID=<%= user.ID_usuario %>"><img src="/img/LogoChat.png" width="100px" height="100px"></a></span>
+    <span id="chat"><a href="/chat?ID_conversacion=<%= user.ID_usuario %>"><img src="/img/LogoChat.png" width="100px" height="100px"></a></span>
     <span id="rechazar"><a href="/principal"><img src="/img/LogoRechazar.png" width="100px" height="100px"></a></span>
   </div>
   <br>
