@@ -166,18 +166,18 @@
   <div id="cuadrosticky">
     <button align="left" id="logo"><a href="/principal"><img src="/img/LogoAffinitySolSQRvar.png" width="100px"></a></button>
   </div>
-  <form method="post">
-    <div class="centro">
-      <h1 id="nombrecentro"><u>Mis conversaciones</u></h1>
+  <div class="centro">
+    <h1 id="nombrecentro"><u>Mis conversaciones</u></h1>
+    <form method="post">
       <% conversaciones.forEach(conversacion => { %>
-      <input type="hidden" name="idconversacion" value="<%= conversacion.ID_conversacion %>">
-      <label class="usuario1label">-&nbsp;<u>Usuario1:</u></label>
-      <input type="text" name="usuario1" value="<%= conversacion.Usuario1 %>" id="usuario1">
-      <label class="usuario2label">-&nbsp;<u>Usuario2:</u></label>
-      <input type="text" name="usuario2" value="<%= conversacion.Usuario2 %>" id="usuario2">
+        <input type="hidden" name="idconversacion" value="<%= conversacion.ID_conversacion %>">
+        <label class="usuario1label">-&nbsp;<u>Usuario1:</u></label>
+        <input type="text" name="usuario1" value="<%= conversacion.Usuario1 %>" id="usuario1">
+        <label class="usuario2label">-&nbsp;<u>Usuario2:</u></label>
+        <input type="text" name="usuario2" value="<%= conversacion.Usuario2 %>" id="usuario2">
       <% }); %>
-    </div>
-  </form>
+    </form>
+  </div>
   <%- include ('./parcial/pie') %>
   <div class="dropdown">
     <span><img src="/img/PerfilUsuario.png" width="60px" height="60px" class="dropbtn"></span>
