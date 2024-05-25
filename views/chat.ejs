@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chat</title>
+<style>
+  /* Estilos previos */
+
+  body {
+    background-image: url("/img/FondoWiiThingyEnfocado.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: 'Arial', sans-serif;
+  }
+  .centro {
+    position: absolute;
+    left: 50%;
+    top: 64%;
+    transform: translate(-50%, -50%);
+    height: 380px;
+    width: 500px;
+    background-color: #f0f0f0;
+    padding: 30px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  .pie {
+    position: absolute;
+    bottom: 2px;
+    width: 99%;
+    text-align: center;
+    color: orange;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  #cuadrosticky {
+    position: sticky;
+    top: 2%;
+  }
+  #logo {
+    position: absolute;
+    left: 0.1%;
+    top: 1%;
+    border-style: none;
+    background-color: rgba(255, 255, 255, 0);
+  }
+  #nombre {
+    display: block;
+    margin: 10px 0;
+    font-weight: bold;
+    font-size: 30px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  }
+  #ubicacion, #aficiones {
+    display: block;
+    margin: 10px 0;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+  }
+  #chat {
+    position: absolute;
+    right: 76%;
+    top: 66%;
+  }
+  #rechazar {
+    position: absolute;
+    left: 76%;
+    top: 66%;
+  }
+  .dropdown {
+    position: fixed;
+    top: 3%;
+    right: 1%;
+    display: inline-block;
+  }
+  div {
+    font-size: 25px;
+    width: 1200px;
+    background-color: aquamarine;
+  }
+
+  /* Estilos para mensajes */
+  .message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  .message.sender {
+    background-color: #d1e7dd;
+    text-align: right;
+  }
+  .message.receiver {
+    background-color: #f8d7da;
+    text-align: left;
+  }
+</style>
+</head>
+<body>
+  <div id="cuadrosticky">
+    <button align="left" id="logo"><a href="/"><img src="/img/LogoAffinitySolSQRvar.png" width="100px"></a></button>
+  </div>
+  <div id="chat-container">
+    <div id="messages"></div>
+    <form id="chat-form">
+      <input type="hidden" id="ID_conversacion">
+      <input type="text" id="mensaje" placeholder="Escribe tu mensaje...">
+      <button type="submit" onclick="comprobarMensaje(event)">Enviar</button>
+    </form>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const userID = sessionStorage.getItem('userID');
+      const receptorID = '<%= receptorID %>';
+      const chatForm = document.getElementById('chat-form');
+      const messagesContainer = document.getElementById('messages');
+      const ID_conversacion = document.getElementById('ID_conversacion');
+
+      fetch('/chat/conversacion', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ Usuario1: userID, Usuario2: receptorID })
+      })
+      .then(response => response.json())
+      .then(data => {
+        ID_conversacion.value = data.ID_conversacion;
+        loadMessages(data.ID_conversacion);
+      });
+
+      chatForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const mensaje = document.getElementById('mensaje').value;
+
+        fetch('/chat/mensaje', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ ID_conversacion: ID_conversacion.value, Emisor: userID, Texto: mensaje })
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            loadMessages(ID_conversacion.value);
+            document.getElementById('mensaje').value = '';
+          }
+        });
+      });
+
+      function loadMessages(ID_conversacion) {
+        fetch(`/chat/mensaje/${ID_conversacion}`)
+          .then(response => response.json())
+          .then(messages => {
+            messagesContainer.innerHTML = '';
+            messages.forEach(message => {
+              const messageElement = document.createElement('div');
+              messageElement.textContent = `${message.EmisorNombre}: ${message.Texto}`;
+              messagesContainer.appendChild(messageElement);
+            });
+          });
+      }
+    });
+  </script>
+</body>
+</html>

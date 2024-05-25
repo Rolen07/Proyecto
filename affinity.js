@@ -151,6 +151,106 @@ app.post('/aficiones', (req, res) => {
   });
 });
 
+// Ruta para obtener una conversación
+
+app.get('/chat', (req, res) => {
+  const receptorID = req.query.receptorID;
+  res.render('chat', { receptorID });
+});
+
+// Ruta para establecer una conversación
+app.post('/chat/conversacion', (req, res) => {
+  const { Usuario1, Usuario2 } = req.body;
+
+  const queryConversacion = `
+    SELECT ID_conversacion FROM conversacion
+    WHERE (Usuario1 = ? AND Usuario2 = ?) OR (Usuario1 = ? AND Usuario2 = ?)
+  `;
+
+  connection.query(queryConversacion, [Usuario1, Usuario2, Usuario2, Usuario1], (error, results) => {
+    if (error) {
+      console.error('Error al obtener la conversación:', error);
+      res.status(500).json({ error: 'Error interno del servidor al obtener la conversación' });
+      return;
+    }
+
+    if (results.length > 0) {
+      res.json({ ID_conversacion: results[0].ID_conversacion });
+    } else {
+      const insertConversacion = `
+        INSERT INTO conversacion (Usuario1, Usuario2) VALUES (?, ?)
+      `;
+
+      connection.query(insertConversacion, [Usuario1, Usuario2], (error, results) => {
+        if (error) {
+          console.error('Error al crear la conversación:', error);
+          res.status(500).json({ error: 'Error interno del servidor al crear la conversación' });
+          return;
+        }
+
+        res.json({ ID_conversacion: results.insertId });
+      });
+    }
+  });
+});
+
+// Ruta para enviar un mensaje
+app.post('/chat/mensaje', (req, res) => {
+  const { ID_conversacion, Emisor, Texto } = req.body;
+
+  const insertMensaje = `
+    INSERT INTO mensaje (ID_conversacion, Emisor, Texto) VALUES (?, ?, ?)
+  `;
+
+  connection.query(insertMensaje, [ID_conversacion, Emisor, Texto], (error, results) => {
+    if (error) {
+      console.error('Error al enviar el mensaje:', error);
+      res.status(500).json({ error: 'Error interno del servidor al enviar el mensaje' });
+      return;
+    }
+
+    res.json({ success: true });
+  });
+});
+
+// Ruta para obtener mensajes de una conversación
+app.get('/chat/mensaje/:ID_conversacion', (req, res) => {
+  const { ID_conversacion } = req.params;
+
+  const queryMensaje = `
+    SELECT m.*, u.Nombre as EmisorNombre
+    FROM mensaje m
+    JOIN usuarios u ON m.Emisor = u.ID_usuario
+    WHERE ID_conversacion = ?
+    ORDER BY m.Fecha
+  `;
+
+  connection.query(queryMensaje, [ID_conversacion], (error, results) => {
+    if (error) {
+      console.error('Error al obtener los mensajes:', error);
+      res.status(500).json({ error: 'Error interno del servidor al obtener los mensajes' });
+      return;
+    }
+
+    res.json(results);
+  });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 app.get('/datos', (req, res) => {
   connection.query("SELECT ID_aficion, Nombre_aficion FROM aficiones", (err, rows) => {
     if (err) {

@@ -197,29 +197,49 @@ INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000010', '000000
 INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000010', '00000001'); -- Lectura
 
 -- -----------------------------------------------------
--- Table `Affinity`.`chat`
+-- Table `Affinity`.`conversacion`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Affinity`.`chat` ;
-
-CREATE TABLE IF NOT EXISTS `Affinity`.`chat` (
-  `ID_chat` INT NOT NULL AUTO_INCREMENT,
-  `Emisor` INT NOT NULL,
-  `Receptor` INT NOT NULL,
-  `Texto` VARCHAR(2000) NOT NULL,
-  PRIMARY KEY (`ID_chat`),
-  INDEX `Emisor_idx` (`Emisor` ASC) VISIBLE,
-  INDEX `Receptor_idx` (`Receptor` ASC) VISIBLE,
-  CONSTRAINT `Emisor`
-    FOREIGN KEY (`Emisor`)
+CREATE TABLE IF NOT EXISTS `Affinity`.`conversacion` (
+  `ID_conversacion` INT NOT NULL AUTO_INCREMENT,
+  `Usuario1` INT NOT NULL,
+  `Usuario2` INT NOT NULL,
+  PRIMARY KEY (`ID_conversacion`),
+  UNIQUE KEY `unique_conversation` (`Usuario1`, `Usuario2`),
+  CONSTRAINT `Usuario1_fk`
+    FOREIGN KEY (`Usuario1`)
     REFERENCES `Affinity`.`Usuarios` (`ID_usuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `Receptor`
-    FOREIGN KEY (`Receptor`)
+  CONSTRAINT `Usuario2_fk`
+    FOREIGN KEY (`Usuario2`)
     REFERENCES `Affinity`.`Usuarios` (`ID_usuario`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    ON UPDATE NO ACTION
+) ENGINE=InnoDB;
+
+-- -----------------------------------------------------
+-- Table `Affinity`.`mensaje`
+-- -----------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `Affinity`.`mensaje` (
+  `ID_mensaje` INT NOT NULL AUTO_INCREMENT,
+  `ID_conversacion` INT NOT NULL,
+  `Emisor` INT NOT NULL,
+  `Texto` VARCHAR(2000) NOT NULL,
+  `Fecha` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`ID_mensaje`),
+  CONSTRAINT `Conversacion_fk`
+    FOREIGN KEY (`ID_conversacion`)
+    REFERENCES `Affinity`.`conversacion` (`ID_conversacion`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `Emisor_fk`
+    FOREIGN KEY (`Emisor`)
+    REFERENCES `Affinity`.`Usuarios` (`ID_usuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+) ENGINE=InnoDB;
+
 
 -- Unique usuario_aficion --
 
