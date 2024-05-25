@@ -114,52 +114,15 @@ app.post('/principal', (req, res) => {
     if (results.length > 0) {
       req.session.ID_usuario = results[0].ID_usuario;
       req.session.Mail = mail;
-      
-      const queryUsuario = `
-        SELECT ID_usuario, Nombre, Mail, Ubicación
-        FROM usuarios
-        ORDER BY RAND() LIMIT 1;
+
+      const script = `
+        <script>
+          sessionStorage.setItem('userID', '${results[0].ID_usuario}');
+          window.location.href = '/principal';
+        </script>
       `;
 
-      connection.query(queryUsuario, (errorUsuario, resultsUsuario) => {
-        if (errorUsuario) {
-          console.error('Error al obtener el usuario:', errorUsuario);
-          res.status(500).send('Error interno del servidor al obtener el usuario');
-          return;
-        }
-
-        if (resultsUsuario.length === 0) {
-          res.status(404).send('No se encontraron usuarios');
-          return;
-        }
-
-        const userID = resultsUsuario[0].ID_usuario;
-
-        const queryAficiones = `
-          SELECT a.Nombre_aficion
-          FROM usuario_aficion ua
-          INNER JOIN aficiones a ON ua.ID_aficion = a.ID_aficion
-          WHERE ua.ID_usuario = ?
-        `;
-
-        connection.query(queryAficiones, [userID], (errorAficiones, resultsAficiones) => {
-          if (errorAficiones) {
-            console.error('Error al obtener las aficiones del usuario:', errorAficiones);
-            res.status(500).send('Error interno del servidor al obtener las aficiones del usuario');
-            return;
-          }
-
-          const usuario = {
-            ID_usuario: resultsUsuario[0].ID_usuario,
-            Nombre: resultsUsuario[0].Nombre,
-            Mail: resultsUsuario[0].Mail,
-            Ubicación: resultsUsuario[0].Ubicación,
-            Aficiones: resultsAficiones.map(row => row.Nombre_aficion)
-          };
-
-          res.render('index', { user: usuario });
-        });
-      });
+      res.send(script);
     } else {
       res.redirect('/erroracceso');
     }
