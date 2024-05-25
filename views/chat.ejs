@@ -2,69 +2,69 @@
 <html>
 <head>
   <title>Chat</title>
-<style>
-  body {
-    background-attachment: fixed;
-    background-image: url("/img/FondoWiiThingyEnfocado.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    font-family: 'Arial', sans-serif;
-  }
-  #cuadrosticky {
-    position: sticky;
-    top: 2%;
-  }
-  #logo {
-    position: absolute;
-    left: 0.1%;
-    top: 1%;
-    border-style: none;
-    background-color: rgba(255, 255, 255, 0);
-  }
-  #chat-container {
-    position: relative;
-    left: 9%;
-    font-size: 25px;
-    width: 1200px;
-  }
-  #inputmensajes {
-    position: sticky;
-    width: 1000px;
-  }
-
-  #inputmensajes > #boton {
-    position: relative;
-    width: 120%;
-    padding: 7px;
-    height: 10%;
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-
-  #inputmensajes input[type="text"] {
-      width: 117.7%;
-      height: 20%;
-      padding: 10px;
-      font-size: 19px;
-      font-family: 'Arial';
-      line-height: 28px;
+  <style>
+    body {
+      background-attachment: fixed;
+      background-image: url("/img/FondoWiiThingyEnfocado.png");
+      background-repeat: no-repeat;
+      background-size: cover;
+      font-family: 'Arial', sans-serif;
+    }
+    #cuadrosticky {
+      position: sticky;
+      top: 2%;
+    }
+    #logo {
+      position: absolute;
+      left: 0.1%;
+      top: 1%;
+      border-style: none;
+      background-color: rgba(255, 255, 255, 0);
+    }
+    #chat-container {
+      position: relative;
+      left: 9%;
+      font-size: 25px;
+      width: 1200px;
+    }
+    #inputmensajes {
+      position: sticky;
+      width: 1000px;
     }
 
-  /* Estilos para mensajes */
-  .message {
-    margin-bottom: 10px;
-    padding: 10px;
-    border-radius: 5px;
-  }
-  .message.sender {
-    background-color: rgba(34, 156, 178, 0.425);
-    text-align: right;
-  }
-  .message.receiver {
-    background-color: rgba(255, 166, 0, 0.425);
-    text-align: left;
-  }
-</style>
+    #inputmensajes > #boton {
+      position: relative;
+      width: 120%;
+      padding: 7px;
+      height: 10%;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    #inputmensajes input[type="text"] {
+        width: 117.7%;
+        height: 20%;
+        padding: 10px;
+        font-size: 19px;
+        font-family: 'Arial';
+        line-height: 28px;
+      }
+
+    /* Estilos para mensajes */
+    .message {
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    .message.sender {
+      background-color: rgba(34, 156, 178, 0.425);
+      text-align: right;
+    }
+    .message.receiver {
+      background-color: rgba(255, 166, 0, 0.425);
+      text-align: left;
+    }
+  </style>
 </head>
 <body>
   <div id="cuadrosticky">
@@ -84,23 +84,17 @@
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const userID = sessionStorage.getItem('userID');
+      const ID_conversacion = '<%= ID_conversacion %>'; // Utiliza el ID_conversacion proporcionado por el servidor
       const chatForm = document.getElementById('chat-form');
       const messagesContainer = document.getElementById('messages');
-      const ID_conversacion = document.getElementById('ID_conversacion');
 
-      fetch('/chat/conversacion', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ ID_conversacion: ID_conversacion})
-      })
-      .then(response => response.json())
-      .then(data => {
-        ID_conversacion.value = data.ID_conversacion;
-        loadMessages(data.ID_conversacion);
-      });
+      // Establecer el valor del campo ID_conversacion
+      document.getElementById('ID_conversacion').value = ID_conversacion;
 
+      // Cargar los mensajes al cargar la página
+      loadMessages(ID_conversacion);
+
+      // Enviar mensaje al enviar el formulario
       chatForm.addEventListener('submit', function (event) {
         event.preventDefault();
         const mensaje = document.getElementById('mensaje').value;
@@ -108,33 +102,33 @@
           alert('El mensaje no puede estar vacío');
           return;
         }
-        enviarMensaje(event);
+        enviarMensaje(mensaje);
       });
 
-      function enviarMensaje(event) {
-        const mensaje = document.getElementById('mensaje').value;
-
+      // Función para enviar mensaje
+      function enviarMensaje(mensaje) {
         fetch('/chat/mensaje', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ ID_conversacion: ID_conversacion.value, Emisor: userID, Texto: mensaje })
+          body: JSON.stringify({ ID_conversacion: ID_conversacion, Emisor: userID, Texto: mensaje })
         })
         .then(response => response.json())
         .then(data => {
           if (data.success) {
-            loadMessages(ID_conversacion.value);
-            document.getElementById('mensaje').value = '';
+            loadMessages(ID_conversacion); // Cargar mensajes después de enviar el mensaje
+            document.getElementById('mensaje').value = ''; // Limpiar el campo de entrada
           }
         });
       }
 
+      // Función para cargar mensajes
       function loadMessages(ID_conversacion) {
         fetch(`/chat/mensaje/${ID_conversacion}`)
           .then(response => response.json())
           .then(messages => {
-            messagesContainer.innerHTML = '';
+            messagesContainer.innerHTML = ''; // Limpiar mensajes anteriores
             messages.forEach(message => {
               const messageElement = document.createElement('div');
               messageElement.textContent = `${message.EmisorNombre}: ${message.Texto}`;
@@ -144,7 +138,7 @@
               } else {
                 messageElement.classList.add('receiver');
               }
-              messagesContainer.appendChild(messageElement);
+              messagesContainer.appendChild(messageElement); // Agregar mensaje al contenedor
             });
           });
       }
