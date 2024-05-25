@@ -72,10 +72,10 @@ listar.get('/members', (req, res) => {
 
  //Página para presentar las conversaciones del usuario según su ID
  listar.get('/chats', (req, res) => {
-  const idUsuario = req.query.ID_Usuario; // Obteniendo el ID_Usuario de los parámetros de consulta
+  const idUsuario = req.query.Usuario1; // Obteniendo el ID_Usuario de los parámetros de consulta
 
   // Consulta SQL para obtener las conversaciones del usuario
-  const query = 'SELECT * FROM conversacion WHERE Usuario1 = ? OR Usuario2 = ?';
+  const query = 'SELECT * FROM conversacion, usuarios WHERE Usuario1 = ? OR Usuario2 = ?';
 
   connection.query(query, [idUsuario, idUsuario], (error, results) => {
     if (error) {

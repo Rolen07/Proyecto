@@ -171,10 +171,10 @@
       <h1 id="nombrecentro"><u>Mis conversaciones</u></h1>
       <% conversaciones.forEach(conversacion => { %>
       <input type="hidden" name="idconversacion" value="<%= conversacion.ID_conversacion %>">
+      <label class="usuario1label">-&nbsp;<u>Usuario1:</u></label>
+      <input type="text" name="usuario1" value="<%= conversacion.Usuario1 %>" id="usuario1">
       <label class="usuario2label">-&nbsp;<u>Usuario2:</u></label>
       <input type="text" name="usuario2" value="<%= conversacion.Usuario2 %>" id="usuario2">
-      <button type="submit" id="botonact" onclick="actualizarDatos(event)">Actualizar datos</button>
-      <button type="button" id="botonborrar" onclick="borrarCuenta(event)">Borrar cuenta</button>
       <% }); %>
     </div>
   </form>
