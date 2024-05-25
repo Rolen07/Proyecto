@@ -3,35 +3,12 @@
 <head>
   <title>Chat</title>
 <style>
-  /* Estilos previos */
-
   body {
+    background-attachment: fixed;
     background-image: url("/img/FondoWiiThingyEnfocado.png");
     background-repeat: no-repeat;
     background-size: cover;
     font-family: 'Arial', sans-serif;
-  }
-  .centro {
-    position: absolute;
-    left: 50%;
-    top: 64%;
-    transform: translate(-50%, -50%);
-    height: 380px;
-    width: 500px;
-    background-color: #f0f0f0;
-    padding: 30px;
-    border: 2px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-  }
-  .pie {
-    position: absolute;
-    bottom: 2px;
-    width: 99%;
-    text-align: center;
-    color: orange;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
   #cuadrosticky {
     position: sticky;
@@ -44,39 +21,34 @@
     border-style: none;
     background-color: rgba(255, 255, 255, 0);
   }
-  #nombre {
-    display: block;
-    margin: 10px 0;
-    font-weight: bold;
-    font-size: 30px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  }
-  #ubicacion, #aficiones {
-    display: block;
-    margin: 10px 0;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-  }
-  #chat {
-    position: absolute;
-    right: 76%;
-    top: 66%;
-  }
-  #rechazar {
-    position: absolute;
-    left: 76%;
-    top: 66%;
-  }
-  .dropdown {
-    position: fixed;
-    top: 3%;
-    right: 1%;
-    display: inline-block;
-  }
-  div {
+  #chat-container {
+    position: relative;
+    left: 9%;
     font-size: 25px;
     width: 1200px;
-    background-color: aquamarine;
   }
+  #inputmensajes {
+    position: sticky;
+    width: 1000px;
+  }
+
+  #inputmensajes > #boton {
+    position: relative;
+    width: 120%;
+    padding: 7px;
+    height: 10%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  #inputmensajes input[type="text"] {
+      width: 117.7%;
+      height: 20%;
+      padding: 10px;
+      font-size: 19px;
+      font-family: 'Arial';
+      line-height: 28px;
+    }
 
   /* Estilos para mensajes */
   .message {
@@ -85,11 +57,11 @@
     border-radius: 5px;
   }
   .message.sender {
-    background-color: #d1e7dd;
+    background-color: rgba(34, 156, 178, 0.425);
     text-align: right;
   }
   .message.receiver {
-    background-color: #f8d7da;
+    background-color: rgba(255, 166, 0, 0.425);
     text-align: left;
   }
 </style>
@@ -99,12 +71,14 @@
     <button align="left" id="logo"><a href="/"><img src="/img/LogoAffinitySolSQRvar.png" width="100px"></a></button>
   </div>
   <div id="chat-container">
-    <div id="messages"></div>
     <form id="chat-form">
       <input type="hidden" id="ID_conversacion">
+      <div id="inputmensajes">
       <input type="text" id="mensaje" placeholder="Escribe tu mensaje...">
-      <button type="submit" onclick="comprobarMensaje(event)">Enviar</button>
+      <button type="submit" id="boton" onclick="enviarMensaje(event)">Enviar</button>
+      </div>
     </form>
+    <div id="messages"></div>
   </div>
 
   <script>
@@ -131,6 +105,15 @@
       chatForm.addEventListener('submit', function (event) {
         event.preventDefault();
         const mensaje = document.getElementById('mensaje').value;
+        if (mensaje.trim() === '') {
+          alert('El mensaje no puede estar vacío');
+          return;
+        }
+        enviarMensaje(event);
+      });
+
+      function enviarMensaje(event) {
+        const mensaje = document.getElementById('mensaje').value;
 
         fetch('/chat/mensaje', {
           method: 'POST',
@@ -146,7 +129,7 @@
             document.getElementById('mensaje').value = '';
           }
         });
-      });
+      }
 
       function loadMessages(ID_conversacion) {
         fetch(`/chat/mensaje/${ID_conversacion}`)
@@ -156,6 +139,12 @@
             messages.forEach(message => {
               const messageElement = document.createElement('div');
               messageElement.textContent = `${message.EmisorNombre}: ${message.Texto}`;
+              messageElement.classList.add('message');
+              if (message.Emisor === parseInt(userID)) {
+                messageElement.classList.add('sender');
+              } else {
+                messageElement.classList.add('receiver');
+              }
               messagesContainer.appendChild(messageElement);
             });
           });

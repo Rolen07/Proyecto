@@ -222,7 +222,7 @@ app.get('/chat/mensaje/:ID_conversacion', (req, res) => {
     FROM mensaje m
     JOIN usuarios u ON m.Emisor = u.ID_usuario
     WHERE ID_conversacion = ?
-    ORDER BY m.Fecha
+    ORDER BY m.Fecha DESC
   `;
 
   connection.query(queryMensaje, [ID_conversacion], (error, results) => {
