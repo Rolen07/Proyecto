@@ -147,6 +147,7 @@
     <span><img src="/img/PerfilUsuario.png" width="60px" height="60px" class="dropbtn"></span>
     <div class="dropdown-content">
       <a href="#" id="profileLink">Perfil</a>
+      <a href="#" id="chatList">Chats</a>
       <a href="#" onclick="cerrarSesion()">Cerrar sesión</a>
     </div>
   </div>
@@ -159,6 +160,17 @@
       console.log('ID del usuario:', userID);
       // Establecer el enlace del perfil con la ID del usuario
       document.getElementById('profileLink').href = '/list/perfil?ID_usuario=' + userID;
+    } else {
+      // Si no hay ID del usuario, redirigir al inicio de sesión
+      window.location.href = '/';
+    }
+
+
+    // Verificar si la ID del usuario está disponible
+    if (userID) {
+      console.log('ID del usuario:', userID);
+      // Establecer el enlace del perfil con la ID del usuario
+      document.getElementById('chatList').href = '/list/chats?ID_usuario=' + userID;
     } else {
       // Si no hay ID del usuario, redirigir al inicio de sesión
       window.location.href = '/';

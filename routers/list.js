@@ -70,4 +70,21 @@ listar.get('/members', (req, res) => {
   });
 });
 
+ //Página para presentar las conversaciones del usuario según su ID
+ listar.get('/chats', (req, res) => {
+  const idUsuario = req.query.ID_Usuario; // Obteniendo el ID_Usuario de los parámetros de consulta
+
+  // Consulta SQL para obtener las conversaciones del usuario
+  const query = 'SELECT * FROM conversacion WHERE Usuario1 = ? OR Usuario2 = ?';
+
+  connection.query(query, [idUsuario, idUsuario], (error, results) => {
+    if (error) {
+      console.error('Error al obtener los registros de la tabla "conversacion": ', error);
+      res.status(500).send('Error del servidor');
+    } else {
+      res.render('listaconversaciones', { conversaciones: results });
+    }
+  });
+});
+
 module.exports = listar;

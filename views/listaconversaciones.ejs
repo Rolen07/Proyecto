@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>test</title>
+  <link href="https://fonts.googleapis.com/css?family=Nobile|Abel|Ranchers" rel="stylesheet">
+  <style>
+    body {
+      background-image: url("/img/FondoWiiThingyEnfocado.png");
+      background-repeat: no-repeat;
+      background-size: cover;
+      font-family: 'Arial', sans-serif;
+    }
+    .centro {
+      position: absolute;
+      left: 50%;
+      top: 49%;
+      transform: translate(-50%, -50%);
+      height: 380px; /* Altura total con la descripción*/
+      width: 500px;
+      background-color: #f0f0f0;
+      padding: 30px;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center; /* Centrar el texto dentro del div */
+    }
+    #nombrecentro {
+      font-size: 50px;
+      color: rgb(34, 156, 178);
+      position: relative;
+      bottom: 11%;
+      font-weight: bold;
+    }
+    .pie {
+      position: absolute;
+      bottom: 2px;
+      width: 99%;
+      text-align: center;
+      color: orange;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    #cuadrosticky {
+      position: sticky;
+      top: 2%;
+    }
+    #banner {
+      position: relative;
+      left: 29%;
+      top: 20%;
+      width: 40%;
+      height: 32%;
+    }
+    #logo {
+      position: absolute;
+      left: 0.1%;
+      top: 1%;
+      border-style: none;
+      background-color: rgba(255, 255, 255, 0);
+    }
+    /* Estilos para el menú desplegable */
+    .dropdown {
+      position: fixed;
+      top: 3%;
+      right: 1%;
+      display: inline-block;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 1%;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+    .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+    .dropdown-content a:hover {
+      background-color: #f1f1f1;
+    }
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    .dropdown:hover .dropbtn {
+      background-color: #3e8e41;
+    }
+    .nombrelabel {
+      position: absolute;
+      bottom: 70%;
+      left: 10%;
+      font-size: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .maillabel {
+      position: absolute;
+      bottom: 60%;
+      left: 10%;
+      font-size: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .ubicacionlabel {
+      position: absolute;
+      bottom: 49%;
+      left: 10%;
+      font-size: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .contrasenalabel {
+      position: absolute;
+      bottom: 39%;
+      left: 10%;
+      font-size: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    #name {
+      position: absolute;
+      bottom: 69%;
+      left: 47%;
+      font-size: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    #mail {
+      position: absolute;
+      bottom: 58%;
+      left: 47%;
+      font-size: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    #ubicacion {
+      position: absolute;
+      bottom: 48%;
+      left: 47%;
+      font-size: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    #contrasena {
+      position: absolute;
+      bottom: 38%;
+      left: 47%;
+      font-size: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    #botonact {
+      position: absolute;
+      bottom: 10%;
+      left: 60%;
+      font-size: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    #botonborrar {
+      position: absolute;
+      bottom: 10%;
+      left: 10%;
+      font-size: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <div id="cuadrosticky">
+    <button align="left" id="logo"><a href="/principal"><img src="/img/LogoAffinitySolSQRvar.png" width="100px"></a></button>
+  </div>
+  <form method="post">
+    <div class="centro">
+      <h1 id="nombrecentro"><u>Mis conversaciones</u></h1>
+      <% conversaciones.forEach(conversacion => { %>
+      <input type="hidden" name="idconversacion" value="<%= conversacion.ID_conversacion %>">
+      <label class="usuario2label">-&nbsp;<u>Usuario2:</u></label>
+      <input type="text" name="usuario2" value="<%= conversacion.Usuario2 %>" id="usuario2">
+      <button type="submit" id="botonact" onclick="actualizarDatos(event)">Actualizar datos</button>
+      <button type="button" id="botonborrar" onclick="borrarCuenta(event)">Borrar cuenta</button>
+      <% }); %>
+    </div>
+  </form>
+  <%- include ('./parcial/pie') %>
+  <div class="dropdown">
+    <span><img src="/img/PerfilUsuario.png" width="60px" height="60px" class="dropbtn"></span>
+    <div class="dropdown-content">
+      <a href="#" onclick="cerrarSesion()">Cerrar sesión</a>
+    </div>
+  </div>
+</body>
+<script>
+
+  function actualizarDatos(event) {
+      event.preventDefault();
+      const form = document.querySelector('form');
+      form.action = "/modif/actdatos";
+      form.submit();
+  }
+
+  function borrarCuenta(event) {
+      let condicion = "";
+      condicion = prompt("Introduce 'Si' para confirmar la acción");
+      if (condicion == "Si" || condicion == "si" || condicion == "SI") {
+        event.preventDefault();
+        const form = document.querySelector('form');
+        form.action = "/delete/borcuenta";
+        form.submit();
+      }
+  }
+
+  function cerrarSesion() {
+      sessionStorage.removeItem('userID');
+      window.location.href = '/'; // Redirigir a la página de inicio de sesión
+  }
+</script>
+</html>
