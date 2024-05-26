@@ -136,7 +136,7 @@
     <% user.Aficiones.forEach(aficion => { %>
       <span id="aficiones"><%= aficion %></span>
     <% }); %>
-    <span id="chat"><a href="/chat?receptorID=<%= user.ID_usuario %>"><img src="/img/LogoChat.png" width="100px" height="100px"></a></span>
+    <span id="chat"><a href="#" id="chatButton"><img src="/img/LogoChat.png" width="100px" height="100px"></a></span>
     <span id="rechazar"><a href="/principal"><img src="/img/LogoRechazar.png" width="100px" height="100px"></a></span>
   </div>
   <br>
@@ -160,16 +160,6 @@
       console.log('ID del usuario:', userID);
       // Establecer el enlace del perfil con la ID del usuario
       document.getElementById('profileLink').href = '/list/perfil?ID_usuario=' + userID;
-    } else {
-      // Si no hay ID del usuario, redirigir al inicio de sesión
-      window.location.href = '/';
-    }
-
-
-    // Verificar si la ID del usuario está disponible
-    if (userID) {
-      console.log('ID del usuario:', userID);
-      // Establecer el enlace del perfil con la ID del usuario
       document.getElementById('chatList').href = '/list/chats?Usuario1=' + userID;
     } else {
       // Si no hay ID del usuario, redirigir al inicio de sesión
@@ -181,6 +171,28 @@
       sessionStorage.removeItem('userID');
       window.location.href = '/'; // Redirigir a la página de inicio de sesión
     }
+
+    // Manejar el clic en el botón de chat
+    document.getElementById('chatButton').addEventListener('click', function(event) {
+      event.preventDefault();
+      const receptorID = '<%= user.ID_usuario %>';
+      fetch('/chat/conversacion', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ Usuario1: userID, Usuario2: receptorID })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.ID_conversacion) {
+          window.location.href = '/chat?ID_conversacion=' + data.ID_conversacion;
+        } else {
+          console.error('Error al crear la conversación');
+        }
+      })
+      .catch(error => console.error('Error:', error));
+    });
   </script>
 </body>
 </html>

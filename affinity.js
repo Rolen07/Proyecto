@@ -175,10 +175,13 @@ app.post('/chat/conversacion', (req, res) => {
     }
 
     if (results.length > 0) {
+      // La conversación ya existe
       res.json({ ID_conversacion: results[0].ID_conversacion });
     } else {
+      // Crear una nueva conversación
       const insertConversacion = `
-        INSERT INTO conversacion (Usuario1, Usuario2) VALUES (?, ?)
+        INSERT INTO conversacion (Usuario1, Usuario2)
+        VALUES (?, ?)
       `;
 
       connection.query(insertConversacion, [Usuario1, Usuario2], (error, results) => {
@@ -188,7 +191,8 @@ app.post('/chat/conversacion', (req, res) => {
           return;
         }
 
-        res.json({ ID_conversacion: results.insertId });
+        const nuevaIDConversacion = results.insertId;
+        res.json({ ID_conversacion: nuevaIDConversacion });
       });
     }
   });
