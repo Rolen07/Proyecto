@@ -33,7 +33,7 @@ app.post('/signup', (req, res) => {
     Mail: req.body.Mail,
     Contrasena: req.body.Contrasena,
     Ubicación: req.body.Ubicación,
-    Miembro: req.body.Miembro
+    Miembro: req.body.Miembro || 'NO'
   };
 
   connection.query('INSERT INTO Usuarios SET ?', cuenta, (error, results) => {

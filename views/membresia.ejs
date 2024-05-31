@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Formulario de Membresía</title>
-  <style>
+<style>
     body {
       background-color: #f0f0f0;
       font-family: 'Arial', sans-serif;
@@ -66,7 +66,7 @@
     <a href="/principal"><img src="/img/LogoAffinitySolSQRvar.png" width="100px"></a>
   </button>
   <div class="form-container">
-    <form id="membresiaForm" onsubmit="return validarFormulario()">
+    <form id="membresiaForm" method="post">
       <div class="form-group">
         <label for="numeroCuenta">Número de Tarjeta:</label>
         <input type="text" id="numeroCuenta" name="numeroCuenta">
@@ -82,12 +82,31 @@
         <input type="text" id="cvc" name="cvc">
         <div class="error" id="errorCvc">El CVC debe tener 3 dígitos.</div>
       </div>
-      <button type="submit" class="submit-btn">Enviar</button>
+      <!-- Campo oculto para la ID del usuario -->
+      <input type="hidden" id="userID" name="userID">
+  
+      <button type="submit" onclick="validarFormulario(event)" class="submit-btn">Enviar</button>
     </form>
   </div>
 
+
+
+
+
   <script>
-    function validarFormulario() {
+    // Recuperar el ID del usuario desde sessionStorage
+    const userID = sessionStorage.getItem('userID');
+
+    // Verificar si la ID del usuario está disponible
+    if (userID) {
+      console.log('ID del usuario:', userID);
+      // Establecer el enlace del perfil con la ID del usuario
+    } else {
+      // Si no hay ID del usuario, redirigir al inicio de sesión
+      window.location.href = '/';
+    }
+
+    function validarFormulario(event) {
       const numeroCuenta = document.getElementById('numeroCuenta').value;
       const fechaCaducidad = document.getElementById('fechaCaducidad').value;
       const cvc = document.getElementById('cvc').value;
@@ -122,6 +141,17 @@
         valido = false;
       } else {
         errorCvc.style.display = 'none';
+      }
+
+      // Si no es válido, prevenir el envío del formulario
+      if (!valido) {
+        event.preventDefault();
+      } else {
+        // Si es válido, establecer el ID del usuario y la acción del formulario
+        document.getElementById('userID').value = userID;
+        const form = document.querySelector('form');
+        form.action = "/modif/actmembresia";
+        form.submit();
       }
 
       return valido;

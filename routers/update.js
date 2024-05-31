@@ -30,4 +30,18 @@ actualizar.post('/actdatos', (req, res) => {
   });
 });
 
+// Página de actualización del perfil del usuario
+actualizar.post('/actmembresia', (req, res) => {
+  const { userID } = req.body;
+  const query = 'UPDATE usuarios SET Miembro = "SI" WHERE ID_usuario = ?';
+  connection.query(query, [userID], (error, result) => {
+    if (error) {
+      console.error('Error al actualizar el registro en la tabla "usuarios": ', error);
+      res.status(500).send('Error del servidor');
+    } else {
+      res.redirect('/principal');
+    }
+  });
+});
+
 module.exports = actualizar;
