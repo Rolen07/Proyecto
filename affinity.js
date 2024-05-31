@@ -151,6 +151,10 @@ app.post('/aficiones', (req, res) => {
   });
 });
 
+app.get('/membresia', (req, res) => {
+  res.render('membresia');
+});
+
 // Ruta para obtener una conversación
 
 app.get('/chat', (req, res) => {

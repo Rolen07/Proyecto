@@ -146,19 +146,20 @@
       font-size: 20px;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-    #botonact {
+    .boton-container {
       position: absolute;
       bottom: 10%;
-      left: 60%;
-      font-size: 20px;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      justify-content: space-between;
+      width: 80%;
     }
-    #botonborrar {
-      position: absolute;
-      bottom: 10%;
-      left: 10%;
-      font-size: 20px;
+    .boton-container button {
+      font-size: 14px;
+      padding: 10px 20px;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -179,8 +180,11 @@
       <input type="text" name="ubicacion" value="<%= user.Ubicación %>" id="ubicacion">
       <label class="contrasenalabel">-&nbsp;<u>Contraseña:</u></label>
       <input type="password" name="contrasena" value="<%= user.Contrasena %>" id="contrasena">
-      <button type="submit" id="botonact" onclick="actualizarDatos(event)">Actualizar datos</button>
-      <button type="button" id="botonborrar" onclick="borrarCuenta(event)">Borrar cuenta</button>
+      <div class="boton-container">
+        <button type="submit" id="botonact" onclick="actualizarDatos(event)">Actualizar datos</button>
+        <button type="button" id="botonborrar" onclick="borrarCuenta(event)">Borrar cuenta</button>
+        <button type="button" id="botonComprarMembresia" onclick="comprarMembresia()">Comprar Membresía por 4,99€</button>
+      </div>
       <% }); %>
     </div>
   </form>
@@ -193,7 +197,6 @@
   </div>
 </body>
 <script>
-
   function actualizarDatos(event) {
       event.preventDefault();
       const form = document.querySelector('form');
@@ -215,6 +218,10 @@
   function cerrarSesion() {
       sessionStorage.removeItem('userID');
       window.location.href = '/'; // Redirigir a la página de inicio de sesión
+  }
+  
+  function comprarMembresia() {
+    window.location.href = '/membresia';
   }
 </script>
 </html>

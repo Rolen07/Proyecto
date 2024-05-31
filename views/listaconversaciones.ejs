@@ -17,14 +17,14 @@
       left: 50%;
       top: 49%;
       transform: translate(-50%, -50%);
-      height: 380px; /* Altura total con la descripción*/
+      height: auto; /* Ajuste automático de altura */
       width: 500px;
       background-color: #f0f0f0;
       padding: 30px;
       border: 2px solid #ccc;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      text-align: center; /* Centrar el texto dentro del div */
+      text-align: center;
     }
     #nombrecentro {
       font-size: 50px;
@@ -59,7 +59,6 @@
       border-style: none;
       background-color: rgba(255, 255, 255, 0);
     }
-    /* Estilos para el menú desplegable */
     .dropdown {
       position: fixed;
       top: 3%;
@@ -160,6 +159,10 @@
       font-size: 20px;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
+    .conversacion {
+      display: block; /* Asegurar que cada conversación esté en una nueva línea */
+      margin: 10px 0; /* Espacio entre cada conversación */
+    }
   </style>
 </head>
 <body>
@@ -170,10 +173,12 @@
     <h1 id="nombrecentro"><u>Mis conversaciones</u></h1>
     <form method="post">
       <% conversaciones.forEach(conversacion => { %>
-        <input type="hidden" name="idconversacion" value="<%= conversacion.ID_conversacion %>">
-        <input type="hidden" name="usuario1" value="<%= conversacion.Usuario1 %>" id="usuario1">
-        <input type="hidden" name="usuario2" value="<%= conversacion.Usuario2 %>" id="usuario2">
-        <span id="chat"><a href="/chat?ID_conversacion=<%= conversacion.ID_conversacion %>"><img src="/img/LogoChat.png" width="100px" height="100px"></a></span>
+        <span class="conversacion">
+          <a href="/chat?ID_conversacion=<%= conversacion.ID_conversacion %>">
+            Chat entre <%= conversacion.NombreUsuario1 %> y <%= conversacion.NombreUsuario2 %>
+            <img src="/img/LogoChat.png" width="30px" height="30px">
+          </a>
+        </span>
       <% }); %>
     </form>
   </div>
@@ -186,19 +191,17 @@
   </div>
 </body>
 <script>
-    const userID = sessionStorage.getItem('userID');
-    // Verificar si la ID del usuario está disponible
-    if (userID) {
-      console.log('ID del usuario:', userID);
-      // Establecer el enlace del perfil con la ID del usuario
-      document.getElementById('chatList').href = '/list/chats?Usuario1=' + userID;
-    } else {
-      // Si no hay ID del usuario, redirigir al inicio de sesión
-      window.location.href = '/';
-    }
+  const userID = sessionStorage.getItem('userID');
+  if (userID) {
+    console.log('ID del usuario:', userID);
+    document.getElementById('chatList').href = '/list/chats?Usuario1=' + userID;
+  } else {
+    window.location.href = '/';
+  }
+  
   function cerrarSesion() {
-      sessionStorage.removeItem('userID');
-      window.location.href = '/'; // Redirigir a la página de inicio de sesión
+    sessionStorage.removeItem('userID');
+    window.location.href = '/';
   }
 </script>
 </html>
