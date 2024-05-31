@@ -9,6 +9,7 @@
     body {
       background-image: url("/img/FondoWiiThingyEnfocado.png");
       background-repeat: no-repeat;
+      background-attachment: fixed;
       background-size: cover;
       font-family: 'Arial', sans-serif;
     }
@@ -162,9 +163,14 @@
     .conversacion {
       display: block; /* Asegurar que cada conversación esté en una nueva línea */
       background-color: rgba(255, 166, 0, 0.648);
+      border-radius: 30px;
       padding-bottom: 10px;
       margin: 10px 10px; /* Espacio entre cada conversación */
+    }
+    #link {
       text-decoration: none;
+      color: black;
+      font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     }
   </style>
 </head>
@@ -177,7 +183,7 @@
     <form method="post">
       <% conversaciones.forEach(conversacion => { %>
         <span class="conversacion">
-          <a href="/chat?ID_conversacion=<%= conversacion.ID_conversacion %>">
+          <a href="/chat?ID_conversacion=<%= conversacion.ID_conversacion %>" id="link">
             Chat entre <%= conversacion.NombreUsuario1 %> y <%= conversacion.NombreUsuario2 %>
             <img src="/img/LogoChat.png" width="30px" height="30px" id="bocadillo">
           </a>
