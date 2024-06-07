@@ -199,6 +199,36 @@ INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000010', '000000
 INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000010', '00000025'); -- Dibujar
 INSERT INTO Usuario_Aficion (ID_usuario, ID_aficion) VALUES ('00000010', '00000001'); -- Lectura
 
+--------------------------------------------------------
+-- Quitar las restricciones de claves foráneas existentes
+--------------------------------------------------------
+
+ALTER TABLE conversacion DROP FOREIGN KEY Usuario1_fk;
+ALTER TABLE conversacion DROP FOREIGN KEY Usuario2_fk;
+ALTER TABLE mensaje DROP FOREIGN KEY Conversacion_fk;
+ALTER TABLE mensaje DROP FOREIGN KEY Emisor_fk;
+
+-- Agregar las restricciones de las claves foráneas con ON DELETE CASCADE
+ALTER TABLE conversacion
+ADD CONSTRAINT Usuario1_fk
+    FOREIGN KEY (Usuario1)
+    REFERENCES usuarios(ID_usuario)
+    ON DELETE CASCADE,
+ADD CONSTRAINT Usuario2_fk
+    FOREIGN KEY (Usuario2)
+    REFERENCES usuarios(ID_usuario)
+    ON DELETE CASCADE;
+
+ALTER TABLE mensaje
+ADD CONSTRAINT Conversacion_fk
+    FOREIGN KEY (ID_conversacion)
+    REFERENCES conversacion(ID_conversacion)
+    ON DELETE CASCADE,
+ADD CONSTRAINT Emisor_fk
+    FOREIGN KEY (Emisor)
+    REFERENCES usuarios(ID_usuario)
+    ON DELETE CASCADE;
+
 -- -----------------------------------------------------
 -- Table `Affinity`.`conversacion`
 -- -----------------------------------------------------
@@ -248,6 +278,20 @@ CREATE TABLE IF NOT EXISTS `Affinity`.`mensaje` (
 
 ALTER TABLE usuario_aficion
 ADD CONSTRAINT unique_user_hobby UNIQUE (ID_usuario, ID_aficion);
+
+-- Cambiar las restricciones de las claves foráneas con ON DELETE CASCADE
+ALTER TABLE usuario_aficion DROP FOREIGN KEY ID_usuario;
+ALTER TABLE usuario_aficion DROP FOREIGN KEY ID_aficion;
+
+ALTER TABLE usuario_aficion
+ADD CONSTRAINT ID_usuario
+    FOREIGN KEY (ID_usuario)
+    REFERENCES usuarios(ID_usuario)
+    ON DELETE CASCADE,
+ADD CONSTRAINT ID_aficion
+    FOREIGN KEY (ID_aficion)
+    REFERENCES aficiones(ID_aficion)
+    ON DELETE CASCADE;
 
 
 -- Crear una tabla auxiliar para llevar un registro de los usuarios seleccionados
